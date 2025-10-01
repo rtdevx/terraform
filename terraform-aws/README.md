@@ -7,4 +7,4 @@ This series draws heavily from **Kalyan Reddy Daida**’s [Terraform on AWS with
 | 🌐 [Website](https://stacksimplify.com/) | 📺 [YouTube](https://www.youtube.com/stacksimplify) |
 | 💼 [LinkedIn](https://www.linkedin.com/in/kalyan-reddy-daida) | 🗃️ [GitHub](https://github.com/stacksimplify)                                                                                                  |
 
-More details on my website: https://rtdevx.github.io/posts/training/terraform/terraform-on-aws-with-sre--iac-devops/
+Details about the course on my website: [Terraform on AWS with SRE & IaC DevOps](https://rtdevx.github.io/posts/training/terraform/terraform-on-aws-with-sre--iac-devops/)
