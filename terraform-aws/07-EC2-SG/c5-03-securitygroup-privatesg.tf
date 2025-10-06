@@ -1,33 +1,32 @@
 # INFO: Create Ingress Security Group - SSH Traffic
 # INFO: https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group#example-usage
 
-resource "aws_security_group" "vpc-ssh" {
-  name        = "vpc-ssh"
-  description = "Dev VPC SSH"
+resource "aws_security_group" "private-ssh" {
+  name        = "private-ssh"
+  description = "${local.name} ${local.environment} VPC SSH - PRIVATE"
+  vpc_id      = module.vpc.vpc_id
 
-  tags = {
-    Name = "vpc-ssh"
-  }
+  tags = local.common_tags
+
 }
 
-resource "aws_vpc_security_group_ingress_rule" "vpc-ssh_ipv4" {
-  description       = "Allow Port 22 INBOUND"
-  security_group_id = aws_security_group.vpc-ssh.id
-  cidr_ipv4         = "0.0.0.0/0"
+resource "aws_vpc_security_group_ingress_rule" "private-ssh_ipv4" {
+  description       = "Allow Port 22 INBOUND from the entire VPC CIDR Block"
+  security_group_id = aws_security_group.private-ssh.id
+  cidr_ipv4         = var.vpc_cidr # OPTIMIZE: This allows connectivity from the entire VPC CIDR Block. Perhaps restricting SSH access from Bastion Host only would be more preferable?
   from_port         = 22
   ip_protocol       = "tcp"
   to_port           = 22
 
-  tags = {
-    "Name" = "vpc-ssh-inbound"
-  }
+  tags = local.common_tags
+
 }
 
 # INFO: Create Ingress Security Group - WEB Traffic - 80
 
 resource "aws_security_group" "vpc-web-80" {
   name        = "vpc-web-80"
-  description = "Dev VPC WEB"
+  description = "${local.name} ${local.environment} Dev VPC WEB"
 
   tags = {
     Name = "vpc-web-80"
@@ -51,7 +50,7 @@ resource "aws_vpc_security_group_ingress_rule" "vpc-web-80_ipv4" {
 
 resource "aws_security_group" "vpc-web-443" {
   name        = "vpc-web-443"
-  description = "Dev VPC WEB"
+  description = "${local.name} ${local.environment} VPC WEB"
 
   tags = {
     Name = "vpc-web-443"
@@ -73,22 +72,21 @@ resource "aws_vpc_security_group_ingress_rule" "vpc-web-443_ipv4" {
 
 # INFO: Create Egress Security Group - ALL
 
-resource "aws_security_group" "vpc-egress" {
-  name        = "vpc-egress"
-  description = "Dev VPC Egress"
+resource "aws_security_group" "private-egress" {
+  name        = "private-egress"
+  description = "${local.name} ${local.environment} VPC Egress"
+  vpc_id      = module.vpc.vpc_id
 
-  tags = {
-    Name = "vpc-egress"
-  }
+  tags = local.common_tags
+
 }
 
-resource "aws_vpc_security_group_egress_rule" "allow_all_traffic_ipv4" {
-  description       = "Allow all IP and pports OUTBOUND"
-  security_group_id = aws_security_group.vpc-egress.id
+resource "aws_vpc_security_group_egress_rule" "private-allow-all-traffic_ipv4" {
+  description       = "Allow all IP and ports OUTBOUND"
+  security_group_id = aws_security_group.private-egress.id
   cidr_ipv4         = "0.0.0.0/0"
   ip_protocol       = "-1" # semantically equivalent to all ports
 
-  tags = {
-    "Name" = "vpc-all-outbound"
-  }
+  tags = local.common_tags
+
 }
