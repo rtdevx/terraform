@@ -19,7 +19,7 @@ resource "aws_instance" "myec2vm_private" {
   ]
 
   #for_each  = toset(["0", "1"]) # FIX: Number of instances is taken from here, not from vars / tfvars!
-  #subnet_id = element(module.vpc.private_subnets, tonumber(each.key))  
+  #subnet_id = element(module.vpc.private_subnets, tonumber(each.key))
   count = var.instance_count_private
   #subnet_id = module.vpc.private_subnets[count.index]
   subnet_id = module.vpc.private_subnets[count.index % length(module.vpc.private_subnets)] # NOTE: If var.instance_count_private is greater than the number of subnets, this will cause an index out-of-range error. To avoid that, cycling through subnets using modulo
