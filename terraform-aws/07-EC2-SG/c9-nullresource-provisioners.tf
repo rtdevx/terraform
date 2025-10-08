@@ -46,12 +46,12 @@ resource "null_resource" "name" {
     #on_failure = continue
   }
 
- # INFO: Local Exec Provisioner:  local-exec provisioner (Destroy-Time Provisioner - Triggered during deletion of Resource)
+  # INFO: Local Exec Provisioner:  local-exec provisioner (Destroy-Time Provisioner - Triggered during deletion of Resource)
 
   # NOTE: Creation Time Provisioners - By default they are created during resource creations (terraform apply)
   # NOTE: Destroy Time Provisioners - Will be executed during "terraform destroy" command (when = destroy)
 
-/*  
+  /*  
     provisioner "local-exec" {
     command = "echo Destroy time prov `date` >> destroy-time-prov.txt"
     working_dir = "local-exec-output-files/"

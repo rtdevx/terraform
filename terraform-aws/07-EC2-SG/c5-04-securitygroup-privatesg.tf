@@ -27,6 +27,7 @@ resource "aws_vpc_security_group_ingress_rule" "private-ssh_ipv4" {
 resource "aws_security_group" "vpc-web-80" {
   name        = "vpc-web-80"
   description = "${local.name} ${local.environment} Dev VPC WEB"
+  vpc_id      = module.vpc.vpc_id
 
   tags = {
     Name = "vpc-web-80"
@@ -51,6 +52,7 @@ resource "aws_vpc_security_group_ingress_rule" "vpc-web-80_ipv4" {
 resource "aws_security_group" "vpc-web-443" {
   name        = "vpc-web-443"
   description = "${local.name} ${local.environment} VPC WEB"
+  vpc_id      = module.vpc.vpc_id
 
   tags = {
     Name = "vpc-web-443"
