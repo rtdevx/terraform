@@ -24,51 +24,51 @@ resource "aws_vpc_security_group_ingress_rule" "private-ssh_ipv4" {
 
 # INFO: Create Ingress Security Group - WEB Traffic - 80
 
-resource "aws_security_group" "vpc-web-80" {
-  name        = "vpc-web-80"
+resource "aws_security_group" "private-web-80" {
+  name        = "private-web-80"
   description = "${local.name} ${local.environment} Dev VPC WEB"
   vpc_id      = module.vpc.vpc_id
 
   tags = {
-    Name = "vpc-web-80"
+    Name = "private-web-80"
   }
 }
 
-resource "aws_vpc_security_group_ingress_rule" "vpc-web-80_ipv4" {
+resource "aws_vpc_security_group_ingress_rule" "private-web-80_ipv4" {
   description       = "Allow Port 80 INBOUND"
-  security_group_id = aws_security_group.vpc-web-80.id
+  security_group_id = aws_security_group.private-web-80.id
   cidr_ipv4         = var.vpc_cidr
   from_port         = 80
   ip_protocol       = "tcp"
   to_port           = 80
 
   tags = {
-    "Name" = "vpc-web-80-inbound-80"
+    "Name" = "private-web-inbound-80"
   }
 }
 
 # INFO: Create Ingress Security Group - WEB Traffic - 443
 
-resource "aws_security_group" "vpc-web-443" {
-  name        = "vpc-web-443"
+resource "aws_security_group" "private-web-443" {
+  name        = "private-web-443"
   description = "${local.name} ${local.environment} VPC WEB"
   vpc_id      = module.vpc.vpc_id
 
   tags = {
-    Name = "vpc-web-443"
+    Name = "private-web-443"
   }
 }
 
-resource "aws_vpc_security_group_ingress_rule" "vpc-web-443_ipv4" {
+resource "aws_vpc_security_group_ingress_rule" "private-web-443_ipv4" {
   description       = "Allow Port 443 INBOUND"
-  security_group_id = aws_security_group.vpc-web-443.id
+  security_group_id = aws_security_group.private-web-443.id
   cidr_ipv4         = var.vpc_cidr
   from_port         = 443
   ip_protocol       = "tcp"
   to_port           = 443
 
   tags = {
-    "Name" = "vpc-web-443-inbound-443"
+    "Name" = "private-web-inbound-443"
   }
 }
 

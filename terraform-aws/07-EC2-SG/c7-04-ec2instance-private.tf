@@ -12,8 +12,8 @@ resource "aws_instance" "myec2vm_private" {
   vpc_security_group_ids = [ # NOTE: Attach INGRESS SG
 
     aws_security_group.private-ssh.id,
-    aws_security_group.vpc-web-80.id,
-    aws_security_group.vpc-web-443.id,
+    aws_security_group.private-web-80.id,
+    aws_security_group.private-web-443.id,
     aws_security_group.private-egress.id # NOTE: Attach EGRESS SG
 
   ]
