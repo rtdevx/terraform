@@ -18,7 +18,7 @@ module "vpc" {
   create_database_subnet_route_table = true
 
   enable_nat_gateway = true
-  single_nat_gateway = true
+  single_nat_gateway = true # NOTE: Only in non-prod regions.
 
   tags = local.common_tags
 

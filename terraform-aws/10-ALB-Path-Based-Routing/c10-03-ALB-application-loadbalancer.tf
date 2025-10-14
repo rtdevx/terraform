@@ -1,16 +1,17 @@
-# INFO: Create Application Load Balancer - Basic
+# INFO: Create Application Load Balancer - Host Header based Routing
 
 # INFO: Create Application Load Balancer - Resource
 # ? https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb
 
 resource "aws_lb" "application_load_balancer" {
+  //depends_on         = [aws_acm_certificate.cert]
   name               = "${local.name}-alb"
   internal           = false
   load_balancer_type = "application"
 
   security_groups = [
     aws_security_group.private-web-alb-web-80.id,
-    //aws_security_group.private-web-alb-web-443.id # ! Disabling port 443 (c5-05-securitygroup-loadbalancersg.tf) for now.
+    aws_security_group.private-web-alb-web-443.id,
     aws_security_group.private-web-alb-egress.id
   ]
 
@@ -25,8 +26,9 @@ resource "aws_lb" "application_load_balancer" {
 # INFO: Application Load Balancer - Target Groups
 # ? https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_target_group
 
-resource "aws_lb_target_group" "private_target_group_80" {
-  name        = "private-lb-tg-80"
+# INFO: APP1
+resource "aws_lb_target_group" "private_target_group_80_app1" {
+  name        = "private-lb-tg-80-app1"
   target_type = "instance"
   port        = 80
   protocol    = "HTTP"
@@ -46,6 +48,69 @@ resource "aws_lb_target_group" "private_target_group_80" {
 
 }
 
+resource "aws_lb_target_group" "private_target_group_443_app1" {
+  name        = "private-lb-tg-443-app1"
+  target_type = "instance"
+  port        = 443
+  protocol    = "HTTP"
+  vpc_id      = module.vpc.vpc_id
+
+  health_check {
+    enabled             = true
+    interval            = 30
+    path                = "/app1/index.html"
+    port                = 443
+    healthy_threshold   = 3
+    unhealthy_threshold = 3
+    timeout             = 6
+    protocol            = "HTTP"
+    matcher             = "200-399"
+  }
+
+}
+
+# INFO: APP2
+resource "aws_lb_target_group" "private_target_group_80_app2" {
+  name        = "private-lb-tg-80-app2"
+  target_type = "instance"
+  port        = 80
+  protocol    = "HTTP"
+  vpc_id      = module.vpc.vpc_id
+
+  health_check {
+    enabled             = true
+    interval            = 30
+    path                = "/app2/index.html"
+    port                = 80
+    healthy_threshold   = 3
+    unhealthy_threshold = 3
+    timeout             = 6
+    protocol            = "HTTP"
+    matcher             = "200-399"
+  }
+
+}
+
+resource "aws_lb_target_group" "private_target_group_443_app2" {
+  name        = "private-lb-tg-443-app2"
+  target_type = "instance"
+  port        = 443
+  protocol    = "HTTP"
+  vpc_id      = module.vpc.vpc_id
+
+  health_check {
+    enabled             = true
+    interval            = 30
+    path                = "/app2/index.html"
+    port                = 443
+    healthy_threshold   = 3
+    unhealthy_threshold = 3
+    timeout             = 6
+    protocol            = "HTTP"
+    matcher             = "200-399"
+  }
+
+}
 resource "aws_vpc" "main" {
   cidr_block = module.vpc.vpc_cidr_block
 }
@@ -53,28 +118,147 @@ resource "aws_vpc" "main" {
 # INFO: Application Load Balancer - Target Groups Attach
 # ? https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_target_group_attachment
 
-resource "aws_lb_target_group_attachment" "private_target_group_80" {
+# INFO: APP1
+resource "aws_lb_target_group_attachment" "private_target_group_80_app1" {
 
-  for_each = {                                 # NOTE: Create Map
-    for k, v in aws_instance.myec2vm_private : # NOTE: k = ec2instance, v = ec2instance_details
-    k => v                                     # NOTE: Map ec2instance with ec2instance_details
+  for_each = {                                      # NOTE: Create Map
+    for k, v in aws_instance.myec2vm_private_app1 : # NOTE: k = ec2instance, v = ec2instance_details
+    k => v                                          # NOTE: Map ec2instance with ec2instance_details
   }
 
-  target_group_arn = aws_lb_target_group.private_target_group_80.arn
+  target_group_arn = aws_lb_target_group.private_target_group_80_app1.arn
   target_id        = each.value.id
   port             = 80
+}
+
+resource "aws_lb_target_group_attachment" "private_target_group_443_app1" {
+
+  for_each = {                                      # NOTE: Create Map
+    for k, v in aws_instance.myec2vm_private_app1 : # NOTE: k = ec2instance, v = ec2instance_details
+    k => v                                          # NOTE: Map ec2instance with ec2instance_details
+  }
+
+  target_group_arn = aws_lb_target_group.private_target_group_443_app1.arn
+  target_id        = each.value.id
+  port             = 443
+}
+
+# INFO: APP2
+resource "aws_lb_target_group_attachment" "private_target_group_80_app2" {
+
+  for_each = {                                      # NOTE: Create Map
+    for k, v in aws_instance.myec2vm_private_app2 : # NOTE: k = ec2instance, v = ec2instance_details
+    k => v                                          # NOTE: Map ec2instance with ec2instance_details
+  }
+
+  target_group_arn = aws_lb_target_group.private_target_group_80_app2.arn
+  target_id        = each.value.id
+  port             = 80
+}
+
+resource "aws_lb_target_group_attachment" "private_target_group_443_app2" {
+
+  for_each = {                                      # NOTE: Create Map
+    for k, v in aws_instance.myec2vm_private_app2 : # NOTE: k = ec2instance, v = ec2instance_details
+    k => v                                          # NOTE: Map ec2instance with ec2instance_details
+  }
+
+  target_group_arn = aws_lb_target_group.private_target_group_443_app2.arn
+  target_id        = each.value.id
+  port             = 443
 }
 
 # INFO: Application Load Balancer - Listeners
 # ? https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_listener
 
-resource "aws_lb_listener" "application_load_balancer" {
+# INFO: APP1
+resource "aws_lb_listener" "application_load_balancer_80_app1" {
   load_balancer_arn = aws_lb.application_load_balancer.arn
   port              = "80"
   protocol          = "HTTP"
 
   default_action {
+    //type             = "forward"
+    //target_group_arn = aws_lb_target_group.private_target_group_80_app1.arn
+
+    type = "redirect"
+
+    redirect {
+      port        = "443"
+      protocol    = "HTTPS"
+      status_code = "HTTP_301"
+    }
+
+  }
+}
+
+resource "aws_lb_listener" "application_load_balancer_443_app1" {
+  load_balancer_arn = aws_lb.application_load_balancer.arn
+  port              = "443"
+  protocol          = "HTTPS"
+  ssl_policy        = "ELBSecurityPolicy-2016-08"
+  certificate_arn   = aws_acm_certificate.cert.arn
+
+  default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.private_target_group_80.arn
+    target_group_arn = aws_lb_target_group.private_target_group_443_app1.arn
+
+    /*
+
+    fixed_response {
+      content_type = "text/plain"
+      message_body = "Fixed Static message - for Root Context"
+      status_code  = "200"
+    }
+
+    */
+
+  }
+}
+
+# INFO: APP2
+
+resource "aws_lb_listener" "application_load_balancer_80_app2" {
+  load_balancer_arn = aws_lb.application_load_balancer.arn
+  port              = "80"
+  protocol          = "HTTP"
+
+
+  default_action {
+    //type             = "forward"
+    //target_group_arn = aws_lb_target_group.private_target_group_80_app2.arn
+
+    type = "redirect"
+
+    redirect {
+      port        = "443"
+      protocol    = "HTTPS"
+      status_code = "HTTP_301"
+    }
+
+  }
+}
+
+resource "aws_lb_listener" "application_load_balancer_443_app2" {
+  load_balancer_arn = aws_lb.application_load_balancer.arn
+  port              = "443"
+  protocol          = "HTTPS"
+  ssl_policy        = "ELBSecurityPolicy-2016-08"
+  certificate_arn   = aws_acm_certificate.cert.arn
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.private_target_group_443_app2.arn
+
+    /*
+
+    fixed_response {
+      content_type = "text/plain"
+      message_body = "Fixed Static message - for Root Context"
+      status_code  = "200"
+    }
+
+    */
+
   }
 }

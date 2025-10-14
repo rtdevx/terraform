@@ -17,12 +17,24 @@ output "ec2_bastion_provate_ip" {
 
 # INFO: Private Hosts Outputs
 
-output "ec2_private_instance_ids" {
+# INFO: APP1
+output "ec2_private_instance_ids_app1" {
   description = "Instance ID of the Private Hosts"
-  value       = [for ec2private in aws_instance.myec2vm_private : ec2private.id]
+  value       = [for ec2private_app1 in aws_instance.myec2vm_private_app1 : ec2private_app1.id]
 }
 
-output "ec2_private_private_ip" {
+output "ec2_private_private_ip_app1" {
   description = "Private IP of the Private Hosts"
-  value       = [for ec2private in aws_instance.myec2vm_private : ec2private.private_ip]
+  value       = [for ec2private_app1 in aws_instance.myec2vm_private_app1 : ec2private_app1.private_ip]
+}
+
+# INFO: APP2
+output "ec2_private_instance_ids_app2" {
+  description = "Instance ID of the Private Hosts"
+  value       = [for ec2private_app2 in aws_instance.myec2vm_private_app2 : ec2private_app2.id]
+}
+
+output "ec2_private_private_ip_app2" {
+  description = "Private IP of the Private Hosts"
+  value       = [for ec2private_app2 in aws_instance.myec2vm_private_app2 : ec2private_app2.private_ip]
 }

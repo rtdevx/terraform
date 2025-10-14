@@ -19,8 +19,14 @@ variable "instance_keypair" {
 }
 
 # INFO: AWS EC2 Private Instance Count
-variable "instance_count_private" {
-  description = "AWS EC2 Private Instances Count"
+variable "instance_count_private_app1" {
+  description = "AWS EC2 Private Instances Count - APP1"
+  type        = number
+  default     = 1
+}
+
+variable "instance_count_private_app2" {
+  description = "AWS EC2 Private Instances Count - APP2"
   type        = number
   default     = 1
 }

@@ -26,10 +26,6 @@ resource "aws_vpc_security_group_ingress_rule" "private-web-alb-web-80_ipv4" {
   }
 }
 
-/*
-
-# ! Disabling port 443 (c5-05-securitygroup-loadbalancersg.tf) for now. Following the course, TLS will be enabled later.
-
 # INFO: Create Ingress Security Group - WEB Traffic - 443
 
 resource "aws_security_group" "private-web-alb-web-443" {
@@ -54,8 +50,6 @@ resource "aws_vpc_security_group_ingress_rule" "private-web-alb-web-443_ipv4" {
     "Name" = "private-web-alb-web-inbound-443"
   }
 }
-
-*/
 
 # INFO: Create Egress Security Group - ALL
 
