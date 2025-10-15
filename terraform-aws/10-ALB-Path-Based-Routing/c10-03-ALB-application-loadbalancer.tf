@@ -111,9 +111,6 @@ resource "aws_lb_target_group" "private_target_group_443_app2" {
   }
 
 }
-resource "aws_vpc" "main" {
-  cidr_block = module.vpc.vpc_cidr_block
-}
 
 # INFO: Application Load Balancer - Target Groups Attach
 # ? https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_target_group_attachment
