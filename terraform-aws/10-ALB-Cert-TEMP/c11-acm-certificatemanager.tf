@@ -30,7 +30,7 @@ resource "aws_route53_record" "ns" {
 
 resource "aws_acm_certificate" "cert" {
   domain_name               = data.aws_route53_zone.hosted_zone.name
-  //subject_alternative_names = ["app1.${data.aws_route53_zone.hosted_zone.name}", "app2.${data.aws_route53_zone.hosted_zone.name}"]
+  subject_alternative_names = ["app1.${data.aws_route53_zone.hosted_zone.name}", "app2.${data.aws_route53_zone.hosted_zone.name}"]
   validation_method         = "DNS"
 }
 

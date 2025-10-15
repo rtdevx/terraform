@@ -8,11 +8,30 @@
 # INFO: Alternatively, AWS ACM Module can be used:
 #? https://registry.terraform.io/modules/terraform-aws-modules/acm/aws/latest
 
+# INFO: Create Hosted Zone
+# ? https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_zone
+/*
+resource "aws_route53_zone" "main" {
+  name = "${local.environment}.${data.aws_route53_zone.hosted_zone.name}"
+}
+*/
+/*
+# INFO: Add Hosted Zone NS servers
+
+resource "aws_route53_record" "ns" {
+  zone_id = data.aws_route53_zone.hosted_zone.name
+  name    = "${local.environment}.${data.aws_route53_zone.hosted_zone.name}"
+  type    = "NS"
+  ttl     = "30"
+  records = data.aws_route53_zone.hosted_zone.name_servers
+}
+*/
 # INFO: Request TLS Certificate using `aws_acm_certificate_validation` resource
 
 resource "aws_acm_certificate" "cert" {
-  domain_name               = data.aws_route53_zone.robk_uk.name
-  subject_alternative_names = ["app1.${data.aws_route53_zone.robk_uk.name}", "app2.${data.aws_route53_zone.robk_uk.name}"]
+  domain_name = data.aws_route53_zone.hosted_zone.name
+  //subject_alternative_names = ["app1.${data.aws_route53_zone.hosted_zone.name}", "app2.${data.aws_route53_zone.hosted_zone.name}"]
+  subject_alternative_names = [aws_route53_record.main.name, aws_route53_record.app1.name, aws_route53_record.app2.name]
   validation_method         = "DNS"
 }
 
@@ -23,7 +42,7 @@ resource "aws_route53_record" "cert" {
       name    = dvo.resource_record_name
       record  = dvo.resource_record_value
       type    = dvo.resource_record_type
-      zone_id = dvo.domain_name == data.aws_route53_zone.robk_uk.name ? data.aws_route53_zone.robk_uk.zone_id : data.aws_route53_zone.robk_uk.zone_id
+      zone_id = dvo.domain_name == data.aws_route53_zone.hosted_zone.name ? data.aws_route53_zone.hosted_zone.zone_id : data.aws_route53_zone.hosted_zone.zone_id
     }
   }
 

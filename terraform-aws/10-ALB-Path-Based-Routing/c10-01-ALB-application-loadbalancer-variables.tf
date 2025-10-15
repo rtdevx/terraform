@@ -1,2 +1,2 @@
-# INFO: AWS EC2 Security Group Terraform Variables
+# INFO: AWS ALB Terraform Variables
 # INFO: Placeholder file for Variables

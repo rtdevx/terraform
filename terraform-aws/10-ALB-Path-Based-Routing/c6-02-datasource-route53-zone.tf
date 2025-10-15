@@ -3,20 +3,20 @@
 
 # INFO: Data
 
-data "aws_route53_zone" "robk_uk" {
-  name         = "iac.robk.uk"
+data "aws_route53_zone" "hosted_zone" {
+  name         = "aws.robk.uk"
   private_zone = false
 }
 
 # INFO: Outputs
-# Output robk_uk Zone ID
-output "robk_uk_zoneid" { # NOTE: Required for Domain Validation
+# Output hosted_zone Zone ID
+output "hosted_zone_zoneid" { # NOTE: Required for Domain Validation
   description = "The Hosted Zone id of the desired Hosted Zone"
-  value       = data.aws_route53_zone.robk_uk.zone_id
+  value       = data.aws_route53_zone.hosted_zone.zone_id
 }
 
-# Output robk_uk name
-output "robk_uk_name" {
+# Output hosted_zone name
+output "hosted_zone_name" {
   description = " The Hosted Zone name of the desired Hosted Zone."
-  value       = data.aws_route53_zone.robk_uk.name
+  value       = data.aws_route53_zone.hosted_zone.name
 }

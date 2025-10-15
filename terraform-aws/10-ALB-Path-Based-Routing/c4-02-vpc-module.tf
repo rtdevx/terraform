@@ -20,6 +20,9 @@ module "vpc" {
   enable_nat_gateway = true
   single_nat_gateway = true # NOTE: Only in non-prod regions.
 
+  enable_dns_hostnames = true
+  enable_dns_support   = true
+
   tags = local.common_tags
 
 }

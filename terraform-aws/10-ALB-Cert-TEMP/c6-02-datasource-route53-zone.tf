@@ -4,7 +4,7 @@
 # INFO: Data
 
 data "aws_route53_zone" "hosted_zone" {
-  name         = "robk.uk"
+  name         = "aws.robk.uk"
   private_zone = false
 }
 
