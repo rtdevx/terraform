@@ -27,12 +27,15 @@ output "zone_id" {
 
 # INFO: Listeners Outputs
 
-# INFO: APP1
-output "listeners_80_app1" {
+# INFO: HTTP Redirect
+
+output "listeners_80_redirect" {
   description = "Map of listeners created and their attributes"
-  value       = aws_lb_listener.application_load_balancer_80_app1
+  value       = aws_lb_listener.application_load_balancer_80_redirect
   //sensitive   = true # NOTE: May or may not be sensitive. Listeners resource is giving diferent outputs than the module, skipping module related outputs.
 }
+
+# INFO: APP1
 
 output "listeners_443_app1" {
   description = "Map of listeners created and their attributes"
@@ -42,12 +45,6 @@ output "listeners_443_app1" {
 
 # INFO: APP2
 
-output "listeners_80_app2" {
-  description = "Map of listeners created and their attributes"
-  value       = aws_lb_listener.application_load_balancer_80_app2
-  //sensitive   = true # NOTE: May or may not be sensitive. Listeners resource is giving diferent outputs than the module, skipping module related outputs.
-}
-
 output "listeners_443_app2" {
   description = "Map of listeners created and their attributes"
   value       = aws_lb_listener.application_load_balancer_443_app2
@@ -56,22 +53,14 @@ output "listeners_443_app2" {
 
 # INFO: Target Groups Outputs
 
+# * SSL Termination at LB level. Out of scope for Terraform.
+
 output "target_groups_80_app1" {
   description = "Map of target groups created and their attributes"
   value       = aws_lb_target_group.private_target_group_80_app1
 }
 
-output "target_groups_443_app1" {
-  description = "Map of target groups created and their attributes"
-  value       = aws_lb_target_group.private_target_group_80_app1
-}
-
 output "target_groups_80_app2" {
-  description = "Map of target groups created and their attributes"
-  value       = aws_lb_target_group.private_target_group_80_app2
-}
-
-output "target_groups_443_app2" {
   description = "Map of target groups created and their attributes"
   value       = aws_lb_target_group.private_target_group_80_app2
 }

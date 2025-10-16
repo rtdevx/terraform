@@ -8,7 +8,7 @@ variable "instance_type_bastion" {
 variable "instance_type_private" {
   description = "EC2 Instance Type - AppServer"
   type        = string
-  default     = "t3.micro"
+  default     = "t3.nano"
 }
 
 # INFO: EC2 Instance Key Pair
