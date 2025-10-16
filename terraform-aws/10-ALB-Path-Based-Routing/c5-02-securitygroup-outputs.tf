@@ -37,10 +37,6 @@ output "private_ssh_sg_group_name" {
   value       = aws_security_group.private-ssh.name
 }
 
-/*
-
-# * Rules disabled. Using ALB now instead (c5-05-securitygroup-loadbalancersg.tf, c5-04-securitygroup-privatesg.tf, c10-*.tf).
-
 # INFO: WEB Traffic - 80 Groups
 
 output "private_web80_sg_group_vpc_id" {
@@ -57,6 +53,10 @@ output "private_web80_sg_group_name" {
   description = "The name of the security group"
   value       = aws_security_group.private-web-80.name
 }
+
+/*
+
+# * Only HTTP ports. SSL Termination at LB level. Out of scope for Terraform.
 
 # INFO: WEB Traffic - 443 Groups
 

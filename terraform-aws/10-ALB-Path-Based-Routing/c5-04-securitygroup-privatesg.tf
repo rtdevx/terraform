@@ -22,8 +22,6 @@ resource "aws_vpc_security_group_ingress_rule" "private-ssh_ipv4" {
 
 }
 
-# ! Rules disabled. Using ALB now instead (c5-05-securitygroup-loadbalancersg.tf, c5-02-securitygroup-outputs.tf, c10-*.tf).
-
 # INFO: Create Ingress Security Group - WEB Traffic - 80
 
 resource "aws_security_group" "private-web-80" {
@@ -49,6 +47,10 @@ resource "aws_vpc_security_group_ingress_rule" "private-web-80_ipv4" {
   }
 }
 
+/*
+
+# * Only HTTP ports. SSL Termination at LB level. Out of scope for Terraform.
+
 # INFO: Create Ingress Security Group - WEB Traffic - 443
 
 resource "aws_security_group" "private-web-443" {
@@ -73,6 +75,8 @@ resource "aws_vpc_security_group_ingress_rule" "private-web-443_ipv4" {
     "Name" = "private-web-inbound-443"
   }
 }
+
+*/
 
 # INFO: Create Egress Security Group - ALL
 
