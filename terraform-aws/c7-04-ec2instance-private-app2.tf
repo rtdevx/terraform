@@ -13,7 +13,7 @@ resource "aws_instance" "myec2vm_private_app2" {
 
     aws_security_group.private-ssh.id,
     aws_security_group.private-web-80.id,
-    aws_security_group.private-web-443.id,
+    //aws_security_group.private-web-443.id,
     aws_security_group.private-egress.id # NOTE: Attach EGRESS SG
 
   ]

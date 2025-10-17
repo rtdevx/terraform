@@ -148,15 +148,11 @@ resource "aws_lb_listener" "application_load_balancer_443_app1" {
     type             = "forward"
     target_group_arn = aws_lb_target_group.private_target_group_80_app1.arn # * SSL Termination at LB level.
 
-    /*
-
-    fixed_response {
-      content_type = "text/plain"
-      message_body = "Fixed Static message - for Root Context"
-      status_code  = "200"
-    }
-
-    */
+    //fixed_response {
+    //  content_type = "text/plain"
+    //  message_body = "Fixed Static message - for Root Context"
+    //  status_code  = "200"
+    //}
 
   }
 }
@@ -174,15 +170,11 @@ resource "aws_lb_listener" "application_load_balancer_443_app2" {
     type             = "forward"
     target_group_arn = aws_lb_target_group.private_target_group_80_app2.arn # * SSL Termination at LB level.
 
-    /*
-
-    fixed_response {
-      content_type = "text/plain"
-      message_body = "Fixed Static message - for Root Context"
-      status_code  = "200"
-    }
-
-    */
+    //fixed_response {
+    //  content_type = "text/plain"
+    //  message_body = "Fixed Static message - for Root Context"
+    //  status_code  = "200"
+    //}
 
   }
 }
