@@ -7,7 +7,8 @@ resource "aws_route53_record" "main" {
   type    = "A"
 
   alias {
-    name                   = "${local.environment}.${aws_lb.application_load_balancer.dns_name}"
+    //name                   = "${local.environment}.${aws_lb.application_load_balancer.dns_name}"
+    name                   = aws_lb.application_load_balancer.dns_name
     zone_id                = aws_lb.application_load_balancer.zone_id
     evaluate_target_health = true
   }
@@ -19,7 +20,8 @@ resource "aws_route53_record" "app1" {
   type    = "A"
 
   alias {
-    name                   = "${local.environment}-app1.${aws_lb.application_load_balancer.dns_name}"
+    //name                   = "${local.environment}.${aws_lb.application_load_balancer.dns_name}"
+    name                   = aws_lb.application_load_balancer.dns_name
     zone_id                = aws_lb.application_load_balancer.zone_id
     evaluate_target_health = true
   }
@@ -31,7 +33,8 @@ resource "aws_route53_record" "app2" {
   type    = "A"
 
   alias {
-    name                   = "${local.environment}-app1.${aws_lb.application_load_balancer.dns_name}"
+    //name                   = "${local.environment}.${aws_lb.application_load_balancer.dns_name}"
+    name                   = aws_lb.application_load_balancer.dns_name
     zone_id                = aws_lb.application_load_balancer.zone_id
     evaluate_target_health = true
   }

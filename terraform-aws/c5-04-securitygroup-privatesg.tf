@@ -3,7 +3,7 @@
 
 resource "aws_security_group" "private-ssh" {
   name        = "private-ssh"
-  description = "${local.name} ${local.environment} VPC SSH - PRIVATE"
+  description = "${local.name}-private-ssh"
   vpc_id      = module.vpc.vpc_id
 
   tags = local.common_tags
@@ -26,7 +26,7 @@ resource "aws_vpc_security_group_ingress_rule" "private-ssh_ipv4" {
 
 resource "aws_security_group" "private-web-80" {
   name        = "private-web-80"
-  description = "${local.name} ${local.environment} Dev VPC WEB"
+  description = "${local.name}-private-web-80"
   vpc_id      = module.vpc.vpc_id
 
   tags = {
@@ -82,7 +82,7 @@ resource "aws_vpc_security_group_ingress_rule" "private-web-443_ipv4" {
 
 resource "aws_security_group" "private-egress" {
   name        = "private-egress"
-  description = "${local.name} ${local.environment} VPC Egress"
+  description = "${local.name}-private-egress"
   vpc_id      = module.vpc.vpc_id
 
   tags = local.common_tags

@@ -35,19 +35,11 @@ output "listeners_80_redirect" {
   //sensitive   = true # NOTE: May or may not be sensitive. Listeners resource is giving diferent outputs than the module, skipping module related outputs.
 }
 
-# INFO: APP1
+# INFO: HTTPS Listener
 
-output "listeners_443_app1" {
+output "listeners_443" {
   description = "Map of listeners created and their attributes"
-  value       = aws_lb_listener.application_load_balancer_443_app1
-  //sensitive   = true # NOTE: May or may not be sensitive. Listeners resource is giving diferent outputs than the module, skipping module related outputs.
-}
-
-# INFO: APP2
-
-output "listeners_443_app2" {
-  description = "Map of listeners created and their attributes"
-  value       = aws_lb_listener.application_load_balancer_443_app2
+  value       = aws_lb_listener.application_load_balancer_443
   //sensitive   = true # NOTE: May or may not be sensitive. Listeners resource is giving diferent outputs than the module, skipping module related outputs.
 }
 

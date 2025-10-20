@@ -5,7 +5,7 @@
 
 resource "aws_security_group" "private-web-alb-web-80" {
   name        = "private-web-alb-web-80"
-  description = "${local.name} ${local.environment} Dev VPC WEB"
+  description = "${local.name}-web-80"
   vpc_id      = module.vpc.vpc_id
 
   tags = {
@@ -30,7 +30,7 @@ resource "aws_vpc_security_group_ingress_rule" "private-web-alb-web-80_ipv4" {
 
 resource "aws_security_group" "private-web-alb-web-443" {
   name        = "private-web-alb-web-443"
-  description = "${local.name} ${local.environment} VPC WEB"
+  description = "${local.name}-web-443"
   vpc_id      = module.vpc.vpc_id
 
   tags = {
@@ -41,7 +41,7 @@ resource "aws_security_group" "private-web-alb-web-443" {
 resource "aws_vpc_security_group_ingress_rule" "private-web-alb-web-443_ipv4" {
   description       = "Allow Port 443 INBOUND"
   security_group_id = aws_security_group.private-web-alb-web-443.id
-  cidr_ipv4         = var.vpc_cidr
+  cidr_ipv4         = "0.0.0.0/0"
   from_port         = 443
   ip_protocol       = "tcp"
   to_port           = 443
@@ -55,7 +55,7 @@ resource "aws_vpc_security_group_ingress_rule" "private-web-alb-web-443_ipv4" {
 
 resource "aws_security_group" "private-web-alb-egress" {
   name        = "private-web-alb-egress"
-  description = "${local.name} ${local.environment} VPC Egress"
+  description = "${local.name}-web"
   vpc_id      = module.vpc.vpc_id
 
   tags = local.common_tags

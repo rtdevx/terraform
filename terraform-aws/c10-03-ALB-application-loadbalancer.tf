@@ -4,7 +4,6 @@
 # ? https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb
 
 resource "aws_lb" "application_load_balancer" {
-  //depends_on         = [aws_acm_certificate.cert]
   name               = "${local.name}-alb"
   internal           = false
   load_balancer_type = "application"
@@ -131,51 +130,27 @@ resource "aws_lb_listener" "application_load_balancer_80_redirect" {
       protocol    = "HTTPS"
       status_code = "HTTP_301"
     }
-
   }
 }
 
-# INFO: APP1
+# INFO: HTTPS Listener
 
-resource "aws_lb_listener" "application_load_balancer_443_app1" {
+resource "aws_lb_listener" "application_load_balancer_443" {
+  depends_on        = [aws_acm_certificate_validation.cert] # NOTE: Must be present due to "Error: creating ELBv2 Listener" (cert validation)
   load_balancer_arn = aws_lb.application_load_balancer.arn
   port              = "443"
   protocol          = "HTTPS"
-  ssl_policy        = "ELBSecurityPolicy-2016-08"
+  ssl_policy        = "ELBSecurityPolicy-TLS-1-2-Ext-2018-06"
   certificate_arn   = aws_acm_certificate.cert.arn
 
   default_action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.private_target_group_80_app1.arn # * SSL Termination at LB level.
+    type = "fixed-response"
 
-    //fixed_response {
-    //  content_type = "text/plain"
-    //  message_body = "Fixed Static message - for Root Context"
-    //  status_code  = "200"
-    //}
-
-  }
-}
-
-# INFO: APP2
-
-resource "aws_lb_listener" "application_load_balancer_443_app2" {
-  load_balancer_arn = aws_lb.application_load_balancer.arn
-  port              = "443"
-  protocol          = "HTTPS"
-  ssl_policy        = "ELBSecurityPolicy-2016-08"
-  certificate_arn   = aws_acm_certificate.cert.arn
-
-  default_action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.private_target_group_80_app2.arn # * SSL Termination at LB level.
-
-    //fixed_response {
-    //  content_type = "text/plain"
-    //  message_body = "Fixed Static message - for Root Context"
-    //  status_code  = "200"
-    //}
-
+    fixed_response {
+      content_type = "text/html"
+      message_body = "<html><body><center><h1>Fixed Static message for root content - SSL</h1></center><center><h2><a href=./app1/index.html>app1</a> | <a href=./app2/index.html>app2</a></body></html></h2></center>"
+      status_code  = "200"
+    }
   }
 }
 
@@ -187,15 +162,15 @@ resource "aws_lb_listener" "application_load_balancer_443_app2" {
 # * Weighted Forward action
 
 resource "aws_lb_listener_rule" "host_based_routing_app1" {
-  listener_arn = aws_lb_listener.application_load_balancer_443_app1.arn
-  priority     = 100
+  listener_arn = aws_lb_listener.application_load_balancer_443.arn
+  //priority     = 100
 
   action {
     type = "forward"
     forward {
       target_group {
         arn    = aws_lb_target_group.private_target_group_80_app1.arn
-        weight = 100
+        weight = 50
       }
       stickiness {
         enabled  = true
@@ -205,10 +180,11 @@ resource "aws_lb_listener_rule" "host_based_routing_app1" {
   }
 
   condition {
-    host_header {
-      values = ["/app1*", "*${aws_route53_record.app1.name}*"]
+    path_pattern {
+      values = ["/app1/*"]
     }
   }
+
 }
 
 # INFO: APP2
@@ -216,15 +192,15 @@ resource "aws_lb_listener_rule" "host_based_routing_app1" {
 # * Weighted Forward action
 
 resource "aws_lb_listener_rule" "host_based_routing_app2" {
-  listener_arn = aws_lb_listener.application_load_balancer_443_app2.arn
-  priority     = 100
+  listener_arn = aws_lb_listener.application_load_balancer_443.arn
+  //priority     = 100
 
   action {
     type = "forward"
     forward {
       target_group {
         arn    = aws_lb_target_group.private_target_group_80_app2.arn
-        weight = 100
+        weight = 50
       }
       stickiness {
         enabled  = true
@@ -234,8 +210,9 @@ resource "aws_lb_listener_rule" "host_based_routing_app2" {
   }
 
   condition {
-    host_header {
-      values = ["/app2*", "*${aws_route53_record.app2.name}*"]
+    path_pattern {
+      values = ["/app2/*"]
     }
   }
+
 }

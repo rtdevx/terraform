@@ -3,7 +3,7 @@
 
 resource "aws_security_group" "public-bastion-ssh" {
   name        = "public-bastion-ssh"
-  description = "${local.name} ${local.environment} VPC SSH - PUBLIC"
+  description = "${local.name}-public-ssh"
   vpc_id      = module.vpc.vpc_id
 
   tags = local.common_tags
@@ -26,7 +26,7 @@ resource "aws_vpc_security_group_ingress_rule" "public-bastion-ssh_ipv4" {
 
 resource "aws_security_group" "public-bastion-egress" {
   name        = "public-bastion-egress"
-  description = "${local.name} ${local.environment} VPC Egress"
+  description = "${local.name}-public-egress"
   vpc_id      = module.vpc.vpc_id
 
   tags = local.common_tags
