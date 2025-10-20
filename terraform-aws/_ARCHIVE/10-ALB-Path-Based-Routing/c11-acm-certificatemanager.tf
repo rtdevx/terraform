@@ -1,36 +1,22 @@
 # INFO: Issue and validate TLS Certificate using AWS ACM
 
+# ? Redeploying the certificate with new SAN's will not work if certificate is in use. Any underlying resources have to be first destroyed (manually?) and then redeployed with Terraform.
+
+# ! Load Balancer has to be destroyed manually if SAN's are modified.
+
 # INFO: Most commonly, `acm_certificate` resource is used together with `aws_route53_record` and `aws_acm_certificate_validation` to request a DNS validated certificate, deploy the required validation records and wait for validation to complete.
 # ? https://registry.terraform.io/providers/hashicorp/aws/6.15.0/docs/resources/acm_certificate
 # ? https://registry.terraform.io/providers/hashicorp/aws/6.15.0/docs/resources/route53_record
 # ? https://registry.terraform.io/providers/hashicorp/aws/6.15.0/docs/resources/acm_certificate_validation
 
 # INFO: Alternatively, AWS ACM Module can be used:
-#? https://registry.terraform.io/modules/terraform-aws-modules/acm/aws/latest
+# ? https://registry.terraform.io/modules/terraform-aws-modules/acm/aws/latest
 
-# INFO: Create Hosted Zone
-# ? https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_zone
-/*
-resource "aws_route53_zone" "main" {
-  name = "${local.environment}.${data.aws_route53_zone.hosted_zone.name}"
-}
-*/
-/*
-# INFO: Add Hosted Zone NS servers
-
-resource "aws_route53_record" "ns" {
-  zone_id = data.aws_route53_zone.hosted_zone.name
-  name    = "${local.environment}.${data.aws_route53_zone.hosted_zone.name}"
-  type    = "NS"
-  ttl     = "30"
-  records = data.aws_route53_zone.hosted_zone.name_servers
-}
-*/
 # INFO: Request TLS Certificate using `aws_acm_certificate_validation` resource
 
 resource "aws_acm_certificate" "cert" {
   domain_name               = data.aws_route53_zone.hosted_zone.name
-  subject_alternative_names = ["app1.${data.aws_route53_zone.hosted_zone.name}", "app2.${data.aws_route53_zone.hosted_zone.name}"]
+  subject_alternative_names = [aws_route53_record.main.name, aws_route53_record.app1.name, aws_route53_record.app2.name]
   validation_method         = "DNS"
 }
 

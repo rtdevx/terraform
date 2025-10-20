@@ -27,7 +27,7 @@ resource "aws_instance" "myec2vm_private_app2" {
   #tags = local.common_tags
   tags = {
 
-    Name        = "${local.name}-app2-${count.index + 1}" # NOTE: Applied role-specific -suffix for EC2 instance
+    Name        = "${local.name}-app2" # NOTE: Applied role-specific -suffix for EC2 instance
     owners      = local.owners
     environment = local.environment
 
