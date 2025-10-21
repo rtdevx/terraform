@@ -7,7 +7,6 @@ resource "aws_security_group" "private-ssh" {
   vpc_id      = module.vpc.vpc_id
 
   tags = local.common_tags
-
 }
 
 resource "aws_vpc_security_group_ingress_rule" "private-ssh_ipv4" {
@@ -19,7 +18,6 @@ resource "aws_vpc_security_group_ingress_rule" "private-ssh_ipv4" {
   to_port           = 22
 
   tags = local.common_tags
-
 }
 
 # INFO: Create Ingress Security Group - WEB Traffic - 80
@@ -86,7 +84,6 @@ resource "aws_security_group" "private-egress" {
   vpc_id      = module.vpc.vpc_id
 
   tags = local.common_tags
-
 }
 
 resource "aws_vpc_security_group_egress_rule" "private-allow-all-traffic_ipv4" {
@@ -96,6 +93,5 @@ resource "aws_vpc_security_group_egress_rule" "private-allow-all-traffic_ipv4" {
   ip_protocol       = "-1" # semantically equivalent to all ports
 
   tags = local.common_tags
-
 }
 

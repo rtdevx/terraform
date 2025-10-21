@@ -8,6 +8,5 @@ resource "aws_eip" "myec2vm_bastion_eip" {
   domain = "vpc"
 
   tags = local.common_tags
-
 }
 

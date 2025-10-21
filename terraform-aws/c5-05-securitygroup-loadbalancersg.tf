@@ -59,7 +59,6 @@ resource "aws_security_group" "private-web-alb-egress" {
   vpc_id      = module.vpc.vpc_id
 
   tags = local.common_tags
-
 }
 
 resource "aws_vpc_security_group_egress_rule" "private-web-alb-allow-all-traffic_ipv4" {
@@ -69,5 +68,4 @@ resource "aws_vpc_security_group_egress_rule" "private-web-alb-allow-all-traffic
   ip_protocol       = "-1" # semantically equivalent to all ports
 
   tags = local.common_tags
-
 }

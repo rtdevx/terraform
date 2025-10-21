@@ -24,13 +24,9 @@ resource "aws_instance" "myec2vm_private_app1" {
   #subnet_id = module.vpc.private_subnets[count.index]
   subnet_id = module.vpc.private_subnets[count.index % length(module.vpc.private_subnets)] # NOTE: If var.instance_count_private is greater than the number of subnets, this will cause an index out-of-range error. To avoid that, cycling through subnets using modulo - as advised by copilot
 
-  #tags = local.common_tags
   tags = {
-
     Name        = "${local.name}-app1-${count.index + 1}" # NOTE: Applied role-specific -suffix for EC2 instance
     owners      = local.owners
     environment = local.environment
-
   }
-
 }

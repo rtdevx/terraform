@@ -7,7 +7,6 @@ resource "aws_security_group" "public-bastion-ssh" {
   vpc_id      = module.vpc.vpc_id
 
   tags = local.common_tags
-
 }
 
 resource "aws_vpc_security_group_ingress_rule" "public-bastion-ssh_ipv4" {
@@ -19,7 +18,6 @@ resource "aws_vpc_security_group_ingress_rule" "public-bastion-ssh_ipv4" {
   to_port           = 22
 
   tags = local.common_tags
-
 }
 
 # INFO: Create Egress Security Group - ALL
@@ -30,7 +28,6 @@ resource "aws_security_group" "public-bastion-egress" {
   vpc_id      = module.vpc.vpc_id
 
   tags = local.common_tags
-
 }
 
 resource "aws_vpc_security_group_egress_rule" "bastion-allow-all-traffic_ipv4" {
@@ -40,5 +37,4 @@ resource "aws_vpc_security_group_egress_rule" "bastion-allow-all-traffic_ipv4" {
   ip_protocol       = "-1" # semantically equivalent to all ports
 
   tags = local.common_tags
-
 }

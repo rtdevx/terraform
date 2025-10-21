@@ -56,3 +56,25 @@ output "target_groups_80_app2" {
   description = "Map of target groups created and their attributes"
   value       = aws_lb_target_group.private_target_group_80_app2
 }
+
+# INFO: Application Load Balancer - Listener Rules
+
+output "listener_rules_host_based_routing_app1" {
+  description = "Host Based Routing for APP1"
+  value       = aws_lb_listener_rule.host_based_routing_app1
+}
+
+output "listener_rules_host_based_routing_app2" {
+  description = "Host Based Routing for APP2"
+  value       = aws_lb_listener_rule.host_based_routing_app2
+}
+
+output "listener_rules_query_string_redirect_ext1" {
+  description = "Query String Redirect EXT1"
+  value       = aws_lb_listener_rule.redirect_ext1
+}
+
+output "listener_rules_host_redirect_ext2" {
+  description = "Host Based Redirection"
+  value       = aws_lb_listener_rule.redirect_ext2_azure
+}
