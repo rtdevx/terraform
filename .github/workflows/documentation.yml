@@ -4,28 +4,24 @@
 
 name: Generate terraform docs
 on:
-  pull_request
+  pull_request:
 
 jobs:
   docs:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        #dir: ["module-a", "module-b", "modules/module-c"]
+        dir: [".", "terraform-aws"]
     steps:
       - uses: actions/checkout@v3
         with:
           ref: ${{ github.event.pull_request.head.ref }}
 
-      - name: Render terraform docs for multiple directories
-        run: |
-          #for dir in modules/network modules/compute modules/storage; do
-          for dir in . terraform-aws; do
-            echo "Generating docs for $dir"
-            terraform-docs markdown table $dir --output-file README.md --output-mode inject
-          done
-
-      - name: Commit and push changes
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add .
-          git commit -m "Update terraform docs"
-          git push
+      - name: Render terraform docs for directory
+        uses: terraform-docs/gh-actions@main
+        with:
+          working-dir: ${{ matrix.dir }}
+          output-file: README.md
+          output-method: inject
+          git-push: "true"
