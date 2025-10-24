@@ -10,7 +10,7 @@ This series draws heavily from **Kalyan Reddy Daida**’s [Terraform on AWS with
 Details about the course on my website: [Terraform on AWS with SRE & IaC DevOps](https://rtdevx.github.io/posts/training/terraform/terraform-on-aws-with-sre--iac-devops/)
 
 <h2>In this section:</h2>
-<img src="./infrastructure.png" alt="Infrastructure">
+<img src="./infrastructure.png" alt="Infrastructure"><br />
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
