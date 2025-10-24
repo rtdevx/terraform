@@ -15,6 +15,11 @@ output "dns_lb_app2" {
   value       = aws_route53_record.app2.name
 }
 
+output "dns_lb_app3" {
+  description = "Load Balancer app3 DNS name"
+  value       = aws_route53_record.app3.name
+}
+
 # INFO: External Redirections
 
 output "dns_lb_ext2_azure" {

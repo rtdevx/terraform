@@ -5,8 +5,8 @@
 resource "aws_instance" "myec2vm_bastion" {
   ami           = data.aws_ami.amzlinux2.id
   instance_type = var.instance_type_bastion
-  user_data     = file("${path.module}/app1-install.sh") # NOTE: Apply User Data
-  key_name      = var.instance_keypair                   # NOTE: Attach Key-Pair ID
+  user_data     = file("${path.module}/bastion-install.sh") # NOTE: Apply User Data
+  key_name      = var.instance_keypair                      # NOTE: Attach Key-Pair ID
   subnet_id     = module.vpc.public_subnets[0]
   vpc_security_group_ids = [ # NOTE: Attach INGRESS SG
 

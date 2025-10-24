@@ -1,7 +1,4 @@
 # INFO: Issue and validate TLS Certificate using AWS ACM
-
-# ? Redeploying the certificate with new SAN's will not work if certificate is in use. Any underlying resources have to be first destroyed (manually?) and then redeployed with Terraform.
-
 # INFO: Most commonly, `acm_certificate` resource is used together with `aws_route53_record` and `aws_acm_certificate_validation` to request a DNS validated certificate, deploy the required validation records and wait for validation to complete.
 # ? https://registry.terraform.io/providers/hashicorp/aws/6.15.0/docs/resources/acm_certificate
 # ? https://registry.terraform.io/providers/hashicorp/aws/6.15.0/docs/resources/route53_record

@@ -30,3 +30,9 @@ variable "instance_count_private_app2" {
   type        = number
   default     = 1
 }
+
+variable "instance_count_private_app3" {
+  description = "AWS EC2 Private Instances Count - APP3"
+  type        = number
+  default     = 1
+}

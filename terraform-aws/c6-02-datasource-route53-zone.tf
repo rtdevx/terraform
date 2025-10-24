@@ -4,7 +4,7 @@
 # INFO: Data
 
 data "aws_route53_zone" "hosted_zone" {
-  name         = "aws.skynetx.uk"
+  name         = "aws.skynetx.uk" # FIX: Should be a variable in "c12-01-route53-dnsregistration-variables.tf"
   private_zone = false
 }
 

@@ -37,6 +37,18 @@ resource "aws_route53_record" "app2" {
   }
 }
 
+resource "aws_route53_record" "app3" {
+  zone_id = data.aws_route53_zone.hosted_zone.zone_id
+  name    = "app-${local.environment}.${data.aws_route53_zone.hosted_zone.name}"
+  type    = "A"
+
+  alias {
+    name                   = aws_lb.application_load_balancer.dns_name
+    zone_id                = aws_lb.application_load_balancer.zone_id
+    evaluate_target_health = true
+  }
+}
+
 # INFO: External redirections
 
 resource "aws_route53_record" "ext2_azure" {

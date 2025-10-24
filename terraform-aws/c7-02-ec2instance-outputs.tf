@@ -38,3 +38,14 @@ output "ec2_private_private_ip_app2" {
   description = "Private IP of the Private Hosts"
   value       = [for ec2private_app2 in aws_instance.myec2vm_private_app2 : ec2private_app2.private_ip]
 }
+
+# INFO: APP3
+output "ec2_private_instance_ids_app3" {
+  description = "Instance ID of the Private Hosts"
+  value       = [for ec2private_app3 in aws_instance.myec2vm_private_app3 : ec2private_app3.id]
+}
+
+output "ec2_private_private_ip_app3" {
+  description = "Private IP of the Private Hosts"
+  value       = [for ec2private_app3 in aws_instance.myec2vm_private_app3 : ec2private_app3.private_ip]
+}
