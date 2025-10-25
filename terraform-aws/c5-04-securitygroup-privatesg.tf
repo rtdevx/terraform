@@ -45,7 +45,7 @@ resource "aws_vpc_security_group_ingress_rule" "private-web-80_ipv4" {
   }
 }
 
-# INFO: Create Ingress Security Group - WEB Traffic - 80
+# INFO: Create Ingress Security Group - WEB Traffic - app3 UMS - 8080
 
 resource "aws_security_group" "private-web-8080" {
   name        = "private-web-8080"

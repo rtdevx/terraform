@@ -10,7 +10,7 @@ resource "aws_instance" "myec2vm_private_app3" {
   # NOTE: Apply User Data using template function
   user_data = templatefile("${path.module}/app3-ums-install.tftpl", {
 
-    rds_db_endpoint = aws_db_instance.rdsdb.endpoint
+    rds_db_address  = aws_db_instance.rdsdb.address
     rds_db_port     = aws_db_instance.rdsdb.port
     rds_db_name     = aws_db_instance.rdsdb.db_name
     rds_db_username = aws_db_instance.rdsdb.username
@@ -22,7 +22,7 @@ resource "aws_instance" "myec2vm_private_app3" {
   vpc_security_group_ids = [      # NOTE: Attach INGRESS SG
 
     aws_security_group.private-ssh.id,
-    aws_security_group.private-web-80.id,
+    //aws_security_group.private-web-80.id,
     aws_security_group.private-web-8080.id,
     aws_security_group.private-egress.id # NOTE: Attach EGRESS SG
 

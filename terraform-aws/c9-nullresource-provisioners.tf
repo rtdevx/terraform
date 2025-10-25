@@ -6,7 +6,7 @@
 # @critical: Terraform Provisioners are the last resort, use only if other methods (user_data / AWS CodeArtifact) are not available.
 
 # INFO: Create a Null Resource and Provisioners
-resource "null_resource" "name" {
+resource "null_resource" "myec2vm_bastion" {
   depends_on = [aws_instance.myec2vm_bastion]
 
   # INFO: Connection Block for Provisioners to connect to EC2 Instance
