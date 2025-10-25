@@ -61,7 +61,6 @@ Details about the course on my website: [Terraform on AWS with SRE & IaC DevOps]
 | [aws_route53_record.app2](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
 | [aws_route53_record.app3](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
 | [aws_route53_record.cert](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
-| [aws_route53_record.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
 | [aws_security_group.db-egress](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
 | [aws_security_group.private-db-3306](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
 | [aws_security_group.private-egress](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
@@ -137,7 +136,6 @@ Details about the course on my website: [Terraform on AWS with SRE & IaC DevOps]
 | <a name="output_dns_lb_app1"></a> [dns\_lb\_app1](#output\_dns\_lb\_app1) | Load Balancer app1 DNS name |
 | <a name="output_dns_lb_app2"></a> [dns\_lb\_app2](#output\_dns\_lb\_app2) | Load Balancer app2 DNS name |
 | <a name="output_dns_lb_app3"></a> [dns\_lb\_app3](#output\_dns\_lb\_app3) | Load Balancer app3 DNS name |
-| <a name="output_dns_lb_main"></a> [dns\_lb\_main](#output\_dns\_lb\_main) | Load Balancer main DNS name |
 | <a name="output_ec2_bastion_provate_ip"></a> [ec2\_bastion\_provate\_ip](#output\_ec2\_bastion\_provate\_ip) | Private IP address of the Bastion Host |
 | <a name="output_ec2_bastion_public_instance_ids"></a> [ec2\_bastion\_public\_instance\_ids](#output\_ec2\_bastion\_public\_instance\_ids) | Instance ID of the Bastion Host |
 | <a name="output_ec2_bastion_public_ip"></a> [ec2\_bastion\_public\_ip](#output\_ec2\_bastion\_public\_ip) | Public IP address of the Bastion Host |
