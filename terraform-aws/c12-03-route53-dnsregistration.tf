@@ -1,6 +1,7 @@
 # INFO: Domain Registration
 # ? https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record
 
+/*
 resource "aws_route53_record" "main" {
   zone_id = data.aws_route53_zone.hosted_zone.zone_id
   name    = "${local.environment}.${data.aws_route53_zone.hosted_zone.name}"
@@ -12,6 +13,7 @@ resource "aws_route53_record" "main" {
     evaluate_target_health = true
   }
 }
+*/
 
 resource "aws_route53_record" "app1" {
   zone_id = data.aws_route53_zone.hosted_zone.zone_id
