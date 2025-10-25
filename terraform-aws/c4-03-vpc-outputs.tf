@@ -56,6 +56,6 @@ output "private_nat_gateway_route_ids" {
 
 # INFO: Output Availability Zones
 output "azs" {
-  description = "A list of availability zones spefified as argument to this module"
+  description = "A list of availability zones specified as argument to this module"
   value       = local.azs
 }
