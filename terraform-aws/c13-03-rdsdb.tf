@@ -25,7 +25,7 @@ resource "aws_db_instance" "rdsdb" {
   db_subnet_group_name       = module.vpc.database_subnet_group
   vpc_security_group_ids     = [aws_security_group.private-db-3306.id, aws_security_group.db-egress.id]
   identifier                 = var.db_instance_identifier
-  multi_az                   = false
+  multi_az                   = true
   storage_encrypted          = true
 
   maintenance_window              = "Mon:00:00-Mon:03:00"

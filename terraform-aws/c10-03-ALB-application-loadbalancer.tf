@@ -191,8 +191,13 @@ resource "aws_lb_listener" "application_load_balancer_443" {
   certificate_arn   = aws_acm_certificate.cert.arn
 
   default_action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.private_target_group_8080_app3.arn
+    type = "fixed-response"
+
+    fixed_response {
+      content_type = "text/html"
+      message_body = "<html><body><center><h1>Fixed Static message for root content - SSL</h1></center><center><h2><a href=https://${aws_route53_record.app1.name}/app1/index.html>app1</a> | <a href=https://${aws_route53_record.app2.name}/app2/index.html>app2</a></body></html></h2></center><center><h2><a href=https://${aws_route53_record.app3.name}>app3</a></h2></center></body></html>"
+      status_code  = "200"
+    }
   }
 }
 
