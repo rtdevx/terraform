@@ -9,7 +9,7 @@ resource "aws_autoscaling_group" "my_asg" {
 
   name_prefix               = "myasg-"
   desired_capacity          = 1
-  max_size                  = 4
+  max_size                  = 2
   min_size                  = 1
   health_check_grace_period = 300
   health_check_type         = "EC2" # ? "EC2" or "ELB". Controls how health checking is done. Difference between EC2 and ELB?
