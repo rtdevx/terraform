@@ -5,7 +5,7 @@ resource "aws_autoscaling_group" "my_asg" {
 
   # ! Depends on VPC to be created first. Required for NAT GW to be present in order to run user_data.
   # ! Depends on ALB to be created first. Required for LB Target Groups to be present so it can attach to them.
-  depends_on = [module.vpc, aws_lb.application_load_balancer]
+  depends_on = [module.vpc, aws_lb.network_load_balancer]
 
   name = "myasg"
   //name_prefix               = "myasg-"

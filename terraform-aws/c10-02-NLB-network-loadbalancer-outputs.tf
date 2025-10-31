@@ -2,44 +2,36 @@
 
 output "id" {
   description = "The ID of the load balancer"
-  value       = aws_lb.application_load_balancer.id
+  value       = aws_lb.network_load_balancer.id
 }
 
 output "arn" {
   description = "The ARN of the load balancer"
-  value       = aws_lb.application_load_balancer.arn
+  value       = aws_lb.network_load_balancer.arn
 }
 
 output "arn_suffix" {
   description = "The ARN Suffix of the load balancer"
-  value       = aws_lb.application_load_balancer.arn_suffix
+  value       = aws_lb.network_load_balancer.arn_suffix
 }
 
 output "lb_dns_name" {
   description = "The DNS Name of the load balancer"
-  value       = aws_lb.application_load_balancer.dns_name
+  value       = aws_lb.network_load_balancer.dns_name
 }
 
 output "zone_id" {
   description = "The zone_id of the load balancer"
-  value       = aws_lb.application_load_balancer.zone_id
+  value       = aws_lb.network_load_balancer.zone_id
 }
 
 # INFO: Listeners Outputs
-
-# INFO: HTTP Redirect
-
-output "listeners_80_redirect" {
-  description = "Map of listeners created and their attributes"
-  value       = aws_lb_listener.application_load_balancer_80_redirect
-  //sensitive   = true # NOTE: May or may not be sensitive. Listeners resource is giving diferent outputs than the module, skipping module related outputs.
-}
 
 # INFO: HTTPS Listener
 
 output "listeners_443" {
   description = "Map of listeners created and their attributes"
-  value       = aws_lb_listener.application_load_balancer_443
+  value       = aws_lb_listener.network_load_balancer_443
   //sensitive   = true # NOTE: May or may not be sensitive. Listeners resource is giving diferent outputs than the module, skipping module related outputs.
 }
 

@@ -1,2 +1,2 @@
-# INFO: AWS ALB Terraform Variables
+# INFO: AWS NLB Terraform Variables
 # INFO: Placeholder file for Variables
