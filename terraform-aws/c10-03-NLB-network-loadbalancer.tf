@@ -29,13 +29,6 @@ resource "aws_lb_target_group" "private_target_group_80_app1" {
   protocol    = "TCP"
   vpc_id      = module.vpc.vpc_id
 
-/*
-  stickiness {
-    enabled         = true
-    type            = "lb_cookie"
-    cookie_duration = 60 # NOTE: Seconds
-  }
-*/
   health_check {
     enabled             = true
     interval            = 30
@@ -60,11 +53,10 @@ resource "aws_autoscaling_attachment" "asg_app1" {
 # INFO: network Load Balancer - Listeners
 # ? https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_listener
 
-/*
+# INFO: HTTP Listener
 
-# INFO: HTTP
-
-resource "aws_lb_listener" "network_load_balancer_80_redirect" {
+resource "aws_lb_listener" "network_load_balancer_80" {
+  depends_on        = [aws_acm_certificate_validation.cert] # NOTE: Must be present due to "Error: creating ELBv2 Listener" (cert validation)
   load_balancer_arn = aws_lb.network_load_balancer.arn
   port              = "80"
   protocol          = "TCP"
@@ -75,8 +67,6 @@ resource "aws_lb_listener" "network_load_balancer_80_redirect" {
   }
 }
 
-*/
-
 # INFO: HTTPS Listener
 
 resource "aws_lb_listener" "network_load_balancer_443" {
@@ -84,7 +74,7 @@ resource "aws_lb_listener" "network_load_balancer_443" {
   load_balancer_arn = aws_lb.network_load_balancer.arn
   port              = "443"
   protocol          = "TLS"
-  ssl_policy        = "ELBSecurityPolicy-TLS13-1-2-Res-2021-06"
+  ssl_policy        = "ELBSecurityPolicy-2016-08"
   certificate_arn   = aws_acm_certificate.cert.arn
   alpn_policy       = "HTTP2Preferred"
 
@@ -93,38 +83,3 @@ resource "aws_lb_listener" "network_load_balancer_443" {
     target_group_arn = aws_lb_target_group.private_target_group_80_app1.arn
   }
 }
-
-/*
-
-# INFO: network Load Balancer - Listener Rules
-# ? https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_listener_rule
-
-# INFO: APP1
-# * Weighted Forward action
-
-resource "aws_lb_listener_rule" "host_based_routing_app1" {
-  listener_arn = aws_lb_listener.network_load_balancer_443.arn
-  priority     = 1
-
-  action {
-    type = "forward"
-    forward {
-      target_group {
-        arn    = aws_lb_target_group.private_target_group_80_app1.arn
-        weight = 100
-      }
-      stickiness {
-        enabled  = true
-        duration = 600
-      }
-    }
-  }
-
-  condition {
-    path_pattern {
-      values = ["/app1/*"]
-    }
-  }
-}
-
-*/
