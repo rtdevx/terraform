@@ -26,15 +26,16 @@ resource "aws_lb_target_group" "private_target_group_80_app1" {
   name        = "private-lb-tg-80-app1"
   target_type = "instance"
   port        = 80
-  protocol    = "HTTP"
+  protocol    = "TCP"
   vpc_id      = module.vpc.vpc_id
 
+/*
   stickiness {
     enabled         = true
     type            = "lb_cookie"
     cookie_duration = 60 # NOTE: Seconds
   }
-
+*/
   health_check {
     enabled             = true
     interval            = 30
@@ -93,6 +94,8 @@ resource "aws_lb_listener" "network_load_balancer_443" {
   }
 }
 
+/*
+
 # INFO: network Load Balancer - Listener Rules
 # ? https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_listener_rule
 
@@ -123,3 +126,5 @@ resource "aws_lb_listener_rule" "host_based_routing_app1" {
     }
   }
 }
+
+*/

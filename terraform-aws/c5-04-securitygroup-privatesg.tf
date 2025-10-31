@@ -35,38 +35,13 @@ resource "aws_security_group" "private-web-80" {
 resource "aws_vpc_security_group_ingress_rule" "private-web-80_ipv4" {
   description       = "Allow Port 80 INBOUND"
   security_group_id = aws_security_group.private-web-80.id
-  cidr_ipv4         = var.vpc_cidr
+  cidr_ipv4         = "0.0.0.0/0" # NOTE: Required for NLB
   from_port         = 80
   ip_protocol       = "tcp"
   to_port           = 80
 
   tags = {
     "Name" = "private-web-inbound-80"
-  }
-}
-
-# INFO: Create Ingress Security Group - WEB Traffic - app3 UMS - 8080
-
-resource "aws_security_group" "private-web-8080" {
-  name        = "private-web-8080"
-  description = "${local.name}-private-web-8080"
-  vpc_id      = module.vpc.vpc_id
-
-  tags = {
-    Name = "private-web-8080"
-  }
-}
-
-resource "aws_vpc_security_group_ingress_rule" "private-web-8080_ipv4" {
-  description       = "Allow Port 8080 INBOUND"
-  security_group_id = aws_security_group.private-web-8080.id
-  cidr_ipv4         = var.vpc_cidr
-  from_port         = 8080
-  ip_protocol       = "tcp"
-  to_port           = 8080
-
-  tags = {
-    "Name" = "private-web-inbound-8080"
   }
 }
 
