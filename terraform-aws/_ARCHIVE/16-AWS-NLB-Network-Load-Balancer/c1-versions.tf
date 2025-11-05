@@ -8,12 +8,6 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 6.0" # NOTE: Greater than 6.0. Only the most upright version number (.0) can change.
     }
-
-    # INFO: Random
-    random = {
-      source  = "hashicorp/random"
-      version = "~> 3.0"
-    }
   }
 }
 
@@ -21,9 +15,4 @@ terraform {
 provider "aws" {
   region  = var.aws_region
   profile = "default" # NOTE: AWS Credentials Profile (profile = "default") configured on your local desktop terminal ($HOME/.aws/credentials)
-}
-
-# INFO: Create Random Pet Resource
-resource "random_pet" "this" {
-  length = 2
 }
