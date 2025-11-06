@@ -20,7 +20,7 @@ resource "aws_autoscaling_policy" "high_cpu" {
 resource "aws_cloudwatch_metric_alarm" "app1_asg_cwa_cpu" {
   alarm_name          = "App1-ASG-CWA-CPUUtilization"
   comparison_operator = "GreaterThanOrEqualToThreshold"
-  evaluation_periods  = 2
+  evaluation_periods  = 3
   metric_name         = "CPUUtilization"
   namespace           = "AWS/EC2"
   period              = 120
@@ -40,4 +40,7 @@ resource "aws_cloudwatch_metric_alarm" "app1_asg_cwa_cpu" {
 
   # NOTE: OK Actions, send message using SNS
   ok_actions = [aws_sns_topic.myasg_sns_topic.arn]
+
+  tags = local.common_tags
+
 }

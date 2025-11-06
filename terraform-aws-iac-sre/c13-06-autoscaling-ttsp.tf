@@ -3,10 +3,14 @@
 
 # INFO: TTS - Scaling Policy-1: Based on CPU Utilization
 
+# ! Target Tracking Scaling Policy has been disabled for now as this is now being handled by CloudWatch alarms (c14-02-cloudwatch-asg-alarms.tf). 
+
+/*
+
 resource "aws_autoscaling_policy" "avg_cpu_policy_greater_than_xx" {
   name                      = "avg-cpu-policy-greater-than-xx"
   policy_type               = "TargetTrackingScaling" # NOTE: Default "SimpleScaling."
-  estimated_instance_warmup = 120
+  estimated_instance_warmup = 300
 
   autoscaling_group_name = aws_autoscaling_group.my_asg.id
 
@@ -19,3 +23,5 @@ resource "aws_autoscaling_policy" "avg_cpu_policy_greater_than_xx" {
 
   }
 }
+
+*/

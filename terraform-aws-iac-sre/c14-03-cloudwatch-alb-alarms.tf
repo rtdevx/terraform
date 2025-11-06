@@ -23,6 +23,9 @@ resource "aws_cloudwatch_metric_alarm" "alb_4xx_errors" {
 
   alarm_actions = [aws_sns_topic.myasg_sns_topic.arn]
   ok_actions    = [aws_sns_topic.myasg_sns_topic.arn]
+
+  tags = local.common_tags
+
 }
 
 # * `metric_name` is NOT DOCUMENTED in the `cloudwatch_metric_alarm` resource documentation! Full list here:
