@@ -1,0 +1,65 @@
+# INFO: Create Ingress Security Group - SSH Traffic
+# ? https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group#example-usage
+
+resource "aws_security_group" "private-ssh" {
+  name        = "private-ssh"
+  description = "${local.name}-private-ssh"
+  vpc_id      = module.vpc.vpc_id
+
+  tags = local.common_tags
+}
+
+resource "aws_vpc_security_group_ingress_rule" "private-ssh_ipv4" {
+  description       = "Allow Port 22 INBOUND from the entire VPC CIDR Block"
+  security_group_id = aws_security_group.private-ssh.id
+  cidr_ipv4         = var.vpc_cidr # OPTIMIZE: This allows connectivity from the entire VPC CIDR Block. Perhaps restricting SSH access from Bastion Host only would be more preferable?
+  from_port         = 22
+  ip_protocol       = "tcp"
+  to_port           = 22
+
+  tags = local.common_tags
+}
+
+# INFO: Create Ingress Security Group - WEB Traffic - 80
+
+resource "aws_security_group" "private-web-80" {
+  name        = "private-web-80"
+  description = "${local.name}-private-web-80"
+  vpc_id      = module.vpc.vpc_id
+
+  tags = {
+    Name = "private-web-80"
+  }
+}
+
+resource "aws_vpc_security_group_ingress_rule" "private-web-80_ipv4" {
+  description       = "Allow Port 80 INBOUND"
+  security_group_id = aws_security_group.private-web-80.id
+  cidr_ipv4         = "0.0.0.0/0" # NOTE: Required for NLB
+  from_port         = 80
+  ip_protocol       = "tcp"
+  to_port           = 80
+
+  tags = {
+    "Name" = "private-web-inbound-80"
+  }
+}
+
+# INFO: Create Egress Security Group - ALL
+
+resource "aws_security_group" "private-egress" {
+  name        = "private-egress"
+  description = "${local.name}-private-egress"
+  vpc_id      = module.vpc.vpc_id
+
+  tags = local.common_tags
+}
+
+resource "aws_vpc_security_group_egress_rule" "private-allow-all-traffic_ipv4" {
+  description       = "Allow all IP and ports OUTBOUND"
+  security_group_id = aws_security_group.private-egress.id
+  cidr_ipv4         = "0.0.0.0/0"
+  ip_protocol       = "-1" # semantically equivalent to all ports
+
+  tags = local.common_tags
+}
