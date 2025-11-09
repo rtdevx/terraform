@@ -4,7 +4,7 @@
 
 name: Generate terraform docs
 on:
-  #pull_request:
+  pull_request:
   push:
     branches:
       - main  
@@ -15,7 +15,7 @@ jobs:
     strategy:
       matrix:
         #dir: ["module-a", "module-b", "modules/module-c"]
-        dir: [".", "terraform-aws"]
+        dir: [".", "terraform-aws-iac"]
     steps:
       - uses: actions/checkout@v3
         with:
