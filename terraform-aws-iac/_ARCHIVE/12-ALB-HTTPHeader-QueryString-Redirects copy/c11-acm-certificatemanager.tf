@@ -11,7 +11,7 @@
 
 resource "aws_acm_certificate" "cert" {
   domain_name               = data.aws_route53_zone.hosted_zone.name
-  subject_alternative_names = [/*aws_route53_record.main.name, */ aws_route53_record.app1.name, aws_route53_record.app2.name, aws_route53_record.app3.name]
+  subject_alternative_names = [aws_route53_record.main.name, aws_route53_record.app1.name, aws_route53_record.app2.name, aws_route53_record.ext2_azure.name]
   validation_method         = "DNS"
 
   # INFO: Define Resource lifecycle
