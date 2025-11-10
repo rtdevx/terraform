@@ -9,25 +9,17 @@
 
 ## Providers
 
-| Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.20.0 |
+No providers.
 
 ## Modules
 
-No modules.
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_website_s3_bucket"></a> [website\_s3\_bucket](#module\_website\_s3\_bucket) | ./modules/aws-s3-static-website-bucket | n/a |
 
 ## Resources
 
-| Name | Type |
-|------|------|
-| [aws_s3_bucket.mywebsite](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket) | resource |
-| [aws_s3_bucket_acl.mywebsite](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_acl) | resource |
-| [aws_s3_bucket_ownership_controls.mywebsite](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_ownership_controls) | resource |
-| [aws_s3_bucket_policy.mywebsite](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_policy) | resource |
-| [aws_s3_bucket_public_access_block.mywebsite](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_public_access_block) | resource |
-| [aws_s3_bucket_versioning.mywebsite](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_versioning) | resource |
-| [aws_s3_bucket_website_configuration.mywebsite](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_website_configuration) | resource |
+No resources.
 
 ## Inputs
 
@@ -43,8 +35,7 @@ No modules.
 |------|-------------|
 | <a name="output_arn"></a> [arn](#output\_arn) | ARN of the S3 Bucket |
 | <a name="output_bucket_domain_name"></a> [bucket\_domain\_name](#output\_bucket\_domain\_name) | Bucket Domain Name of the S3 Bucket |
-| <a name="output_bucket_region"></a> [bucket\_region](#output\_bucket\_region) | S3 Bucket Region |
 | <a name="output_bucket_regional_domain_name"></a> [bucket\_regional\_domain\_name](#output\_bucket\_regional\_domain\_name) | Regional Domain Name of the S3 Bucket |
 | <a name="output_name"></a> [name](#output\_name) | Name (id) of the bucket |
-| <a name="output_static_website_url"></a> [static\_website\_url](#output\_static\_website\_url) | Static Website URL |
+| <a name="output_static_website_url"></a> [static\_website\_url](#output\_static\_website\_url) | n/a |
 <!-- END_TF_DOCS -->
