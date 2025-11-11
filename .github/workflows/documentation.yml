@@ -15,7 +15,7 @@ jobs:
     strategy:
       matrix:
         #dir: ["module-a", "module-b", "modules/module-c"]
-        dir: [".", "terraform-aws-iac"]
+        dir: [".", "terraform-aws-iac/manifest"]
     steps:
       - uses: actions/checkout@v3
         with:
