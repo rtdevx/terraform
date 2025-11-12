@@ -21,11 +21,11 @@ _File:_ `MY_PROJECT/c1-versions.tf`
 # INFO: https://registry.terraform.io/providers/hashicorp/aws/latest/docs#example-usage
 
 terraform {
-  required_version = "~> 1.13.0" # NOTE: Greater than 1.13.2. Only the most upright version number (.0) can change.
+  required_version = "~> 1.13.0"
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 6.0" # NOTE: Greater than 6.0. Only the most upright version number (.0) can change.
+      version = "~> 6.0"
     }
   }
 
@@ -43,7 +43,7 @@ terraform {
 # INFO: Provider Block
 provider "aws" {
   region  = var.aws_region
-  profile = "default" # NOTE: AWS Credentials Profile (profile = "default") configured on your local desktop terminal ($HOME/.aws/credentials)
+  profile = "default"
 }
 ```
 ### ℹ️ If required, terraform backend can be reinitialized with `terraform init --migrate-state` command.
