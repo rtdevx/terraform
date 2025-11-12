@@ -15,7 +15,13 @@ jobs:
     strategy:
       matrix:
         #dir: ["module-a", "module-b", "modules/module-c"]
-        dir: [".", "a1-s3-backend", "terraform-aws-iac/manifest"]
+        dir: [
+          ".", 
+          "a1-s3-backend", 
+          "terraform-aws-iac/manifest",
+          "terraform-aws-iac/manifest/p1-aws-vpc",
+          "terraform-aws-iac/manifest/p2-app1-with-asg-alb"
+          ]
     steps:
       - uses: actions/checkout@v3
         with:
