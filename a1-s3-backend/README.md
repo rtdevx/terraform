@@ -12,7 +12,7 @@ Below values (s3 bucket) will be served as a backend for .tfstate file for any f
 
 ## Terraform Backend
 
-For S3 backend for Terraform remote state, use this the root (not a module):
+Enabling S3 backend for Terraform remote state:
 
 _File:_ `MY_PROJECT/c1-versions.tf`
 
