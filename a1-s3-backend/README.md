@@ -46,7 +46,7 @@ provider "aws" {
   profile = "default" # NOTE: AWS Credentials Profile (profile = "default") configured on your local desktop terminal ($HOME/.aws/credentials)
 }
 ```
-### ℹ️ <font color=#EBAC25>If needed, terraform backend can be reinitialized with `terraform init --migrate-state` command.</font>
+### ℹ️ If required, terraform backend can be reinitialized with `terraform init --migrate-state` command.
 
 ### Bucket Versioning
 
