@@ -9,10 +9,20 @@ terraform {
       version = "~> 6.0" # NOTE: Greater than 6.0. Only the most upright version number (.0) can change.
     }
   }
+
+  # INFO: S3 Backend Block
+  backend "s3" {
+    bucket = "rk-backend"
+    key    = "prod/a1-s3-backend/terraform.tfstate"
+    region = "eu-west-2"
+    //dynamodb_table = "prod-a1s3backend-lock" # NOTE: Uncomment to enable state locking with DynamoDB. Table must be created in `c1-dynamodb-lock.tf`.
+    encrypt = true
+  }
+
 }
 
 # INFO: Provider Block
 provider "aws" {
-  region  = "eu-west-2"
+  region  = var.aws_region
   profile = "default" # NOTE: AWS Credentials Profile (profile = "default") configured on your local desktop terminal ($HOME/.aws/credentials)
 }
