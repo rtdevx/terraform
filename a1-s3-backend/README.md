@@ -92,7 +92,7 @@ resource "aws_dynamodb_table" "statelock" {
 }
 ```
 
-### Enable SynamoDB statelock
+### Enable DynamoDB statelock
 
 Modify `MY_PROJECT/c1-versions.tf` (see [Bucket Versioning](#bucket-versioning)) file and enable `//dynamodb_table = "prod-a1s3backend-lock"` line with the DynamoDB Table details.
 
