@@ -51,3 +51,28 @@ This series draws heavily from **Kalyan Reddy Daida**’s [Terraform on AWS with
 </table>
 
 <!-- /About the instructor -->
+<!-- BEGIN_TF_DOCS -->
+## Requirements
+
+No requirements.
+
+## Providers
+
+No providers.
+
+## Modules
+
+No modules.
+
+## Resources
+
+No resources.
+
+## Inputs
+
+No inputs.
+
+## Outputs
+
+No outputs.
+<!-- END_TF_DOCS -->
