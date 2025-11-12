@@ -34,7 +34,7 @@ terraform {
     bucket = "rk-backend"
     key    = "prod/a1-s3-backend/terraform.tfstate"
     region = "eu-west-2"
-    //dynamodb_table = "terraform-locks"
+    //dynamodb_table = "prod-a1s3backend-lock" # NOTE: Uncomment to enable state locking with DynamoDB. Table must be created in `c1-dynamodb-lock.tf`.
     encrypt = true
   }
 
@@ -67,6 +67,8 @@ resource "aws_s3_bucket_versioning" "this" {
 ```
 ## State Locking
 
+### Create DynamoDB Table
+
 ```shell
 # INFO: Create a basic DynamoDB table
 
@@ -89,6 +91,11 @@ resource "aws_dynamodb_table" "statelock" {
 
 }
 ```
+
+### Enable SynamoDB statelock
+
+Modify `MY_PROJECT/c1-versions.tf` (see [Bucket Versioning](#bucket-versioning)) file and enable `//dynamodb_table = "prod-a1s3backend-lock"` line with the DynamoDB Table details.
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
