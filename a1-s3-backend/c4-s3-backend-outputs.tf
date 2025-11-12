@@ -1,4 +1,4 @@
-# Output variable definitions
+
 output "bucket_id" {
   description = "Name (id) of the bucket"
   value       = module.s3_bucket.bucket_id
