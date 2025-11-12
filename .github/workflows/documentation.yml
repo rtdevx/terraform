@@ -18,9 +18,7 @@ jobs:
         dir: [
           ".", 
           "a1-s3-backend", 
-          "terraform-aws-iac/manifest",
-          "terraform-aws-iac/manifest/p1-aws-vpc",
-          "terraform-aws-iac/manifest/p2-app1-with-asg-alb"
+          "terraform-aws-iac/manifest"
           ]
     steps:
       - uses: actions/checkout@v3
