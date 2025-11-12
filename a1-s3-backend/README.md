@@ -50,9 +50,11 @@ provider "aws" {
 
 ### Bucket Versioning
 
-Bucket versioning is currently NOT REQUIRED, therefore it is disabled at the module level in `a1-s3-backend/modules/aws-s3-backend/main`
+Bucket versioning is currently NOT REQUIRED, therefore it is disabled at the module level.
 
-If versioning has to be enabled, change the above file accordingly:
+If versioning has to be enabled, adjust below file:
+
+ _File:_ `a1-s3-backend/modules/aws-s3-backend/main`
 
 ```shell
 # INFO: Enable S3 bucket versioning
