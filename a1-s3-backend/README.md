@@ -10,7 +10,7 @@ Below values (s3 bucket) will be served as a backend for .tfstate file for any f
 - bucket_region = "eu-west-2"
 - bucket_regional_domain_name = "rk-backend.s3.eu-west-2.amazonaws.com"
 
-## Moving terraform backend
+## Terraform Backend
 
 For S3 backend for Terraform remote state, use this the root (not a module):
 
@@ -46,9 +46,9 @@ provider "aws" {
   profile = "default" # NOTE: AWS Credentials Profile (profile = "default") configured on your local desktop terminal ($HOME/.aws/credentials)
 }
 ```
-If needed, terraform backend can be reinitialized with `terraform init --migrate-state` command.
+### ℹ️ <font color=#EBAC25>If needed, terraform backend can be reinitialized with `terraform init --migrate-state` command.</font>
 
-## Bucket Versioning
+### Bucket Versioning
 
 Bucket versioning is currently NOT REQUIRED, therefore it is disabled at the module level in `a1-s3-backend/modules/aws-s3-backend/main`
 
