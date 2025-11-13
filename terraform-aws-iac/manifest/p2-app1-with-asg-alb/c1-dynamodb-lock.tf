@@ -1,6 +1,6 @@
 # INFO: Create a basic DynamoDB table
 
-
+/*
 
 resource "aws_dynamodb_table" "statelock" {
   name         = "dev-p2-aws-vpc-lock"
@@ -21,3 +21,4 @@ resource "aws_dynamodb_table" "statelock" {
 
 }
 
+*/
