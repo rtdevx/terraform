@@ -37,14 +37,18 @@ resource "null_resource" "myec2vm_bastion" {
     ]
   }
 
+  /*
+
   # INFO: Local Exec Provisioner:  local-exec provisioner (Creation-Time Provisioner - Triggered during Create Resource)
   # * https://developer.hashicorp.com/terraform/language/provisioners#local-exec
 
   provisioner "local-exec" {
-    command     = "echo VPC created on `date` and VPC ID: ${data.terraform_remote_state.vpc.outputs.vpc_id} >> creation-time-vpc-id.txt"
+    command     = "echo VPC created on `date` and VPC ID: ${module.vpc.vpc_id} >> creation-time-vpc-id.txt"
     working_dir = "local-exec-output-files/"
     #on_failure = continue
   }
+
+*/
 
   # INFO: Local Exec Provisioner:  local-exec provisioner (Destroy-Time Provisioner - Triggered during deletion of Resource)
 

@@ -14,7 +14,7 @@ resource "aws_lb" "application_load_balancer" {
     aws_security_group.private-web-alb-egress.id
   ]
 
-  subnets                    = data.terraform_remote_state.vpc.outputs.public_subnets
+  subnets                    = module.vpc.public_subnets
   enable_deletion_protection = false
 
   tags = local.common_tags
@@ -31,7 +31,7 @@ resource "aws_lb_target_group" "private_target_group_80_app1" {
   target_type = "instance"
   port        = 80
   protocol    = "HTTP"
-  vpc_id      = data.terraform_remote_state.vpc.outputs.vpc_id
+  vpc_id      = module.vpc.vpc_id
 
   stickiness {
     enabled         = true
@@ -98,7 +98,7 @@ resource "aws_lb_listener" "application_load_balancer_443" {
 
     fixed_response {
       content_type = "text/html"
-      message_body = "<html><body><center><h1>Fixed Static message for root content - SSL</h1></center><center><h2><a href=https://${aws_route53_record.app1.name}/app1/index.html>app1</a> </h2></center><center><h2><a href=https://${aws_route53_record.asg.name}>asg</a></h2></center></body></html>"
+      message_body = "<html><body><center><h1>Fixed Static message for root content - SSL</h1></center><center><h2><a href=https://${aws_route53_record.demo.name}/app1/index.html>app1</a> </h2></center></body></html>"
       status_code  = "200"
     }
   }

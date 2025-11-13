@@ -2,9 +2,9 @@
 # ? https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group#example-usage
 
 resource "aws_security_group" "public-bastion-ssh" {
-  name        = "public-bastion-ssh"
-  description = "${local.name}-public-ssh"
-  vpc_id      = data.terraform_remote_state.vpc.outputs.vpc_id
+  name        = "${local.name}-public-bastion-ssh"
+  description = "Security Group for Public Bastion Host - SSH Access"
+  vpc_id      = module.vpc.vpc_id
 
   tags = local.common_tags
 }
@@ -23,9 +23,9 @@ resource "aws_vpc_security_group_ingress_rule" "public-bastion-ssh_ipv4" {
 # INFO: Create Egress Security Group - ALL
 
 resource "aws_security_group" "public-bastion-egress" {
-  name        = "public-bastion-egress"
-  description = "${local.name}-public-egress"
-  vpc_id      = data.terraform_remote_state.vpc.outputs.vpc_id
+  name        = "${local.name}-public-bastion-egress"
+  description = "Security Group for Public Bastion Host - ALL OUTBOUND"
+  vpc_id      = module.vpc.vpc_id
 
   tags = local.common_tags
 }

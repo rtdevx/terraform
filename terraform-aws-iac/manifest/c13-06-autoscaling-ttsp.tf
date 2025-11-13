@@ -4,7 +4,7 @@
 # INFO: TTS - Scaling Policy-1: Based on CPU Utilization
 
 resource "aws_autoscaling_policy" "avg_cpu_policy_greater_than_xx" {
-  name                      = "avg-cpu-policy-greater-than-xx"
+  name                      = "${local.name}-avg-cpu-policy-greater-than-xx"
   policy_type               = "TargetTrackingScaling" # NOTE: Default "SimpleScaling."
   estimated_instance_warmup = 120
 
@@ -23,7 +23,8 @@ resource "aws_autoscaling_policy" "avg_cpu_policy_greater_than_xx" {
 # INFO: TTS - Scaling Policy-2: Based on ALB Target Requests
 
 resource "aws_autoscaling_policy" "alb_target_requests_greater_than_yy" {
-  name        = "alb-target-requests-greater-than-yy"
+  depends_on = [ aws_autoscaling_group.my_asg ] # NOTE: Ensure ASG is created before this policy due to API errors during initiatal apply.
+  name        = "${local.name}-alb-target-requests-greater-than-yy"
   policy_type = "TargetTrackingScaling" # NOTE: Default "SimpleScaling."
 
   autoscaling_group_name = aws_autoscaling_group.my_asg.id

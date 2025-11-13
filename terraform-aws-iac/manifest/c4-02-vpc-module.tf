@@ -1,5 +1,5 @@
 # INFO: Create VPC using Terraform Module
-# INFO: https://registry.terraform.io/modules/terraform-aws-modules/vpc/aws/latest
+# ? https://registry.terraform.io/modules/terraform-aws-modules/vpc/aws/latest
 
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
@@ -18,9 +18,11 @@ module "vpc" {
   create_database_subnet_route_table = true
 
   enable_nat_gateway = true
-  single_nat_gateway = true
+  single_nat_gateway = true # NOTE: Only in non-prod regions.
+
+  enable_dns_hostnames = true
+  enable_dns_support   = true
 
   tags = local.common_tags
-
 }
 

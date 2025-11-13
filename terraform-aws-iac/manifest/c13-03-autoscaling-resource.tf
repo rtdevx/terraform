@@ -5,15 +5,15 @@ resource "aws_autoscaling_group" "my_asg" {
 
   # ! Depends on VPC to be created first. Required for NAT GW to be present in order to run user_data.
   # ! Depends on ALB to be created first. Required for LB Target Groups to be present so it can attach to them.
-  depends_on = [data.terraform_remote_state.vpc, aws_lb.application_load_balancer]
+  depends_on = [module.vpc, aws_lb.application_load_balancer]
 
-  name_prefix               = "myasg-"
+  name_prefix               = "${local.name}-"
   desired_capacity          = 1
-  max_size                  = 4
+  max_size                  = 2
   min_size                  = 1
   health_check_grace_period = 300
   health_check_type         = "EC2" # ? "EC2" or "ELB". Controls how health checking is done. Difference between EC2 and ELB?
-  vpc_zone_identifier       = data.terraform_remote_state.vpc.outputs.private_subnets
+  vpc_zone_identifier       = module.vpc.private_subnets
 
   target_group_arns = aws_lb_target_group.private_target_group_80_app1.load_balancer_arns
 

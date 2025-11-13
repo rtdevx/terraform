@@ -1,23 +1,59 @@
 ---
-title: Terraform Remote State Datasource Demo
-description: Terraform Remote State Datasource Demo with two projects
+title: Terraform IaC DevOps using AWS CodePipeline
+description: Create AWS CodePipeline with Multiple Environments Dev and Staging
 ---
-# Terraform Remote State Storage Demo with Project-1 and Project-2
+# IaC DevOps using AWS CodePipeline
+
 ## Introduction
-- Understand [Terraform Remote State Storage](https://www.terraform.io/docs/language/state/remote-state-data.html)
-- Terraform Remote State Storage Demo with two projects
+1. Terraform Backend with backend-config
+2. How to create multiple environments related Pipeline with single TF Config files in Terraform ? 
+3. As part of Multiple environments we are going to create `dev` and `stag` environments
+4. We are going build IaC DevOps Pipelines using 
+- AWS CodeBuild
+- AWS CodePipeline
+- Github
+5. We are going to streamline the `terraform-manifests` taken from `section-15` and streamline that to support Multiple environments.
 
-[![Image](https://stacksimplify.com/course-images/terraform-remote-state-datasource-1.png "Terraform on AWS with IAC DevOps and SRE")](https://stacksimplify.com/course-images/terraform-remote-state-datasource-1.png)
+[![Image](https://stacksimplify.com/course-images/terraform-aws-codepipeline-iac-devops-1.png "Terraform on AWS with IAC DevOps and SRE")](https://stacksimplify.com/course-images/terraform-aws-codepipeline-iac-devops-1.png)
 
-[![Image](https://stacksimplify.com/course-images/terraform-remote-state-datasource-2.png "Terraform on AWS with IAC DevOps and SRE")](https://stacksimplify.com/course-images/terraform-remote-state-datasource-2.png)
+[![Image](https://stacksimplify.com/course-images/terraform-aws-codepipeline-iac-devops-2.png "Terraform on AWS with IAC DevOps and SRE")](https://stacksimplify.com/course-images/terraform-aws-codepipeline-iac-devops-2.png)
+
+[![Image](https://stacksimplify.com/course-images/terraform-aws-codepipeline-iac-devops-3.png "Terraform on AWS with IAC DevOps and SRE")](https://stacksimplify.com/course-images/terraform-aws-codepipeline-iac-devops-3.png)
+
+[![Image](https://stacksimplify.com/course-images/terraform-aws-codepipeline-iac-devops-4.png "Terraform on AWS with IAC DevOps and SRE")](https://stacksimplify.com/course-images/terraform-aws-codepipeline-iac-devops-4.png)
+
+## CI/CD
+
+### Backend Config
+
+```shell
+  # INFO: S3 Backend Block
+  backend "s3" {
+    # NOTE: Backend configuration moved to 'env_ENVIRONMENT.conf' files to support multiple environments.
+    # NOTE: Executing backend configuration within CI/CD pipeline `terraform init -backend-config=env_dev.conf` or `terraform init -backend-config=env_stag.conf`
+    # ? https://developer.hashicorp.com/terraform/cli/commands/init
+  }
+}
+```
+
+### CI/CD command
+
+In order to include backend config and point env-related variables:
+
+```shell
+terraform init -backend-config=env_dev.conf 
+terraform plan -var-file=dev.tfvars
+terraform apply -input=false -var-file=env_dev.tfvars -auto-approve
+```
 
 ## Original repo
 
-https://github.com/stacksimplify/terraform-on-aws-ec2/blob/main/21-terraform-remote-state-datasource/README.md
+https://github.com/stacksimplify/terraform-on-aws-ec2/blob/main/22-IaC-DevOps-using-AWS-CodePipeline/README.md
 
 ## References
-- [The terraform_remote_state Data Source](https://www.terraform.io/docs/language/state/remote-state-data.html)
-- [S3 as Remote State Datasource](https://www.terraform.io/docs/language/settings/backends/s3.html)
+- [terraform init command](https://www.terraform.io/docs/cli/commands/init.html)
+- [Backend configuration partial](https://developer.hashicorp.com/terraform/language/backend#partial-configuration)
+- [AWS CodeBuild Builspe file reference](https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html#build-spec.env)
 
 ## Disclaimer
 

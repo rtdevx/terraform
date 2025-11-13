@@ -1,5 +1,5 @@
 # INFO: Input Variables
-# INFO: https://developer.hashicorp.com/terraform/language/block/variable
+# ? https://developer.hashicorp.com/terraform/language/block/variable
 
 # INFO: AWS Region
 variable "aws_region" {

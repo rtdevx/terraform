@@ -1,5 +1,5 @@
 # INFO: Terraform Block
-# INFO: https://registry.terraform.io/providers/hashicorp/aws/latest/docs#example-usage
+# ? https://registry.terraform.io/providers/hashicorp/aws/latest/docs#example-usage
 
 terraform {
   required_version = "~> 1.13.0" # NOTE: Greater than 1.13.2. Only the most upright version number (.0) can change.
@@ -12,13 +12,10 @@ terraform {
 
   # INFO: S3 Backend Block
   backend "s3" {
-    bucket = "rk-backend"
-    key    = "dev/p1-aws-vpc/terraform.tfstate"
-    region = "eu-west-2"
-    //dynamodb_table = "dev-p1-aws-vpc-lock" # NOTE: Uncomment to enable state locking with DynamoDB. Table must be created in `c1-dynamodb-lock.tf`.
-    encrypt = true
+    # NOTE: Backend configuration moved to 'env_ENVIRONMENT.conf' files to support multiple environments.
+    # NOTE: Executing backend configuration within CI/CD pipeline `terraform init -backend-config=env_dev.conf` or `terraform init -backend-config=env_stag.conf`
+    # ? https://developer.hashicorp.com/terraform/cli/commands/init
   }
-
 }
 
 # INFO: Provider Block

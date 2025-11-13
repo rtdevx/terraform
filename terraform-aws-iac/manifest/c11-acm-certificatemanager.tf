@@ -13,8 +13,8 @@ resource "aws_acm_certificate" "cert" {
   domain_name = data.aws_route53_zone.hosted_zone.name
   subject_alternative_names = [
 
-    aws_route53_record.app1.name,
-    aws_route53_record.asg.name
+    aws_route53_record.demo.name,
+    var.dns_name # NOTE: declared in env_*.tfvars for each environment
 
   ]
   validation_method = "DNS"
