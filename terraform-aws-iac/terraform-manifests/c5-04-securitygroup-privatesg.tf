@@ -2,9 +2,9 @@
 # ? https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group#example-usage
 
 resource "aws_security_group" "private-ssh" {
-  name        = "private-ssh"
-  description = "${local.name}-private-ssh"
-  vpc_id      = data.terraform_remote_state.vpc.outputs.vpc_id
+  name        = "${local.name}-private-ssh"
+  description = "Security Group for Private Instances - SSH Access"
+  vpc_id      = module.vpc.vpc_id
 
   tags = local.common_tags
 }
@@ -12,7 +12,7 @@ resource "aws_security_group" "private-ssh" {
 resource "aws_vpc_security_group_ingress_rule" "private-ssh_ipv4" {
   description       = "Allow Port 22 INBOUND from the entire VPC CIDR Block"
   security_group_id = aws_security_group.private-ssh.id
-  cidr_ipv4         = data.terraform_remote_state.vpc.outputs.vpc_cidr_block
+  cidr_ipv4         = var.vpc_cidr
   from_port         = 22
   ip_protocol       = "tcp"
   to_port           = 22
@@ -23,9 +23,9 @@ resource "aws_vpc_security_group_ingress_rule" "private-ssh_ipv4" {
 # INFO: Create Ingress Security Group - WEB Traffic - 80
 
 resource "aws_security_group" "private-web-80" {
-  name        = "private-web-80"
-  description = "${local.name}-private-web-80"
-  vpc_id      = data.terraform_remote_state.vpc.outputs.vpc_id
+  name        = "${local.name}-private-web-80"
+  description = "Security Group for Private Instances - WEB Traffic Port 80"
+  vpc_id      = module.vpc.vpc_id
 
   tags = {
     Name = "private-web-80"
@@ -35,7 +35,7 @@ resource "aws_security_group" "private-web-80" {
 resource "aws_vpc_security_group_ingress_rule" "private-web-80_ipv4" {
   description       = "Allow Port 80 INBOUND"
   security_group_id = aws_security_group.private-web-80.id
-  cidr_ipv4         = data.terraform_remote_state.vpc.outputs.vpc_cidr_block
+  cidr_ipv4         = var.vpc_cidr
   from_port         = 80
   ip_protocol       = "tcp"
   to_port           = 80
@@ -48,9 +48,9 @@ resource "aws_vpc_security_group_ingress_rule" "private-web-80_ipv4" {
 # INFO: Create Ingress Security Group - WEB Traffic - app3 UMS - 8080
 
 resource "aws_security_group" "private-web-8080" {
-  name        = "private-web-8080"
-  description = "${local.name}-private-web-8080"
-  vpc_id      = data.terraform_remote_state.vpc.outputs.vpc_id
+  name        = "${local.name}-private-web-8080"
+  description = "Security Group for Private Instances - WEB Traffic Port 8080"
+  vpc_id      = module.vpc.vpc_id
 
   tags = {
     Name = "private-web-8080"
@@ -60,7 +60,7 @@ resource "aws_security_group" "private-web-8080" {
 resource "aws_vpc_security_group_ingress_rule" "private-web-8080_ipv4" {
   description       = "Allow Port 8080 INBOUND"
   security_group_id = aws_security_group.private-web-8080.id
-  cidr_ipv4         = data.terraform_remote_state.vpc.outputs.vpc_cidr_block
+  cidr_ipv4         = var.vpc_cidr
   from_port         = 8080
   ip_protocol       = "tcp"
   to_port           = 8080
@@ -79,7 +79,7 @@ resource "aws_vpc_security_group_ingress_rule" "private-web-8080_ipv4" {
 resource "aws_security_group" "private-web-443" {
   name        = "private-web-443"
   description = "${local.name} ${local.environment} VPC WEB"
-  vpc_id      = data.terraform_remote_state.vpc.outputs.vpc_id
+  vpc_id      = module.vpc.vpc_id
 
   tags = {
     Name = "private-web-443"
@@ -89,7 +89,7 @@ resource "aws_security_group" "private-web-443" {
 resource "aws_vpc_security_group_ingress_rule" "private-web-443_ipv4" {
   description       = "Allow Port 443 INBOUND"
   security_group_id = aws_security_group.private-web-443.id
-  cidr_ipv4         = data.terraform_remote_state.vpc.outputs.vpc_cidr_block
+  cidr_ipv4         = var.vpc_cidr
   from_port         = 443
   ip_protocol       = "tcp"
   to_port           = 443
@@ -104,9 +104,9 @@ resource "aws_vpc_security_group_ingress_rule" "private-web-443_ipv4" {
 # INFO: Create Egress Security Group - ALL
 
 resource "aws_security_group" "private-egress" {
-  name        = "private-egress"
-  description = "${local.name}-private-egress"
-  vpc_id      = data.terraform_remote_state.vpc.outputs.vpc_id
+  name        = "${local.name}-private-egress"
+  description = "security Group for Private Instances - ALL OUTBOUND"
+  vpc_id      = module.vpc.vpc_id
 
   tags = local.common_tags
 }
@@ -119,4 +119,3 @@ resource "aws_vpc_security_group_egress_rule" "private-allow-all-traffic_ipv4" {
 
   tags = local.common_tags
 }
-

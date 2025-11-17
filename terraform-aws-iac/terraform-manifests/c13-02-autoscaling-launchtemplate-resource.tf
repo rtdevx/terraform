@@ -2,7 +2,7 @@
 # ? https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/launch_template
 
 resource "aws_launch_template" "my_launch_template" {
-  name          = "my-launch-template"
+  name_prefix   = "${local.name}-"
   description   = "My Launch Template"
   image_id      = data.aws_ami.amzlinux2.id
   instance_type = var.instance_type_private
@@ -35,8 +35,19 @@ resource "aws_launch_template" "my_launch_template" {
     enabled = true
   }
 
-  tags = {
-    Name        = "${local.name}-launchtemplate1"
+  # INFO: Tag specifications for instances launched from this template
+  tag_specifications {
+    resource_type = "instance"
+    tags = {
+      Name        = "${local.name}-mylaunchtemplate"
+      owners      = local.owners
+      environment = local.environment
+    }
+  }
+
+  # INFO: Tag specifications for the launch template itself
+    tags = {
+    Name        = "${local.name}"
     owners      = local.owners
     environment = local.environment
   }

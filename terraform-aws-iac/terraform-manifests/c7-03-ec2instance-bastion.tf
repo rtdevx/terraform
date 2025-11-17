@@ -6,7 +6,7 @@ resource "aws_instance" "myec2vm_bastion" {
   instance_type = var.instance_type_bastion
   user_data     = file("${path.module}/bastion-install.sh") # NOTE: Apply User Data
   key_name      = var.instance_keypair                      # NOTE: Attach Key-Pair ID
-  subnet_id     = data.terraform_remote_state.vpc.outputs.public_subnets[0]
+  subnet_id     = module.vpc.public_subnets[0]
   vpc_security_group_ids = [ # NOTE: Attach INGRESS SG
 
     aws_security_group.public-bastion-ssh.id,
