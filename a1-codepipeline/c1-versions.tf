@@ -1,6 +1,12 @@
 # INFO: Terraform Block
 # INFO: https://registry.terraform.io/providers/hashicorp/aws/latest/docs#example-usage
 
+# INFO: Provider Block
+provider "aws" {
+  region  = var.aws_region
+  profile = "default" # NOTE: AWS Credentials Profile (profile = "default") configured on your local desktop terminal ($HOME/.aws/credentials)
+}
+
 terraform {
   required_version = "~> 1.13.0" # NOTE: Greater than 1.13.2. Only the most upright version number (.0) can change.
   required_providers {
@@ -9,8 +15,6 @@ terraform {
       version = "~> 6.0" # NOTE: Greater than 6.0. Only the most upright version number (.0) can change.
     }
   }
-
-
 
   # INFO: S3 Backend Block
   backend "s3" {
@@ -21,10 +25,4 @@ terraform {
     encrypt = true
   }
 
-}
-
-# INFO: Provider Block
-provider "aws" {
-  region  = var.aws_region
-  profile = "default" # NOTE: AWS Credentials Profile (profile = "default") configured on your local desktop terminal ($HOME/.aws/credentials)
 }
