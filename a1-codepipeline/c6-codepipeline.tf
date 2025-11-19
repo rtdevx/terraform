@@ -1,5 +1,5 @@
 resource "aws_codepipeline" "my_pipeline_dev" {
-  name     = "codebuild-tf-iacdevops-aws-cp1-dev"
+  name     = "tf-iacdevops-aws-dev"
   role_arn = aws_iam_role.codepipeline_role.arn
 
   artifact_store {
@@ -47,7 +47,7 @@ resource "aws_codepipeline" "my_pipeline_dev" {
 }
 
 resource "aws_codepipeline" "my_pipeline_stag" {
-  name     = "codebuild-tf-iacdevops-aws-cp1-stag"
+  name     = "tf-iacdevops-aws-stag"
   role_arn = aws_iam_role.codepipeline_role.arn
 
   artifact_store {
