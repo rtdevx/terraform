@@ -1,4 +1,4 @@
 aws_region                      = "eu-west-2"
 environment                     = "dev"
 business_division               = "devops"
-codepipeline_bucket_name_prefix = "rk-codepipeline-iacdevops"
+codepipeline_bucket_name_prefix = "rk-codepipeline-iac"
