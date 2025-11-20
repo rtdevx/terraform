@@ -24,8 +24,8 @@ resource "aws_codebuild_project" "dev" {
 
   logs_config {
     cloudwatch_logs {
-      //group_name  = "/aws/codebuild/codebuild-tf-iacdevops-aws-dev"
-      status = "DISABLED" # NOTE: Enable or DISABLE CloudWatch Logs for CodeBuild Project. Default retention is indefinite! (Delete manualy in CloudWatch > Log Groups).
+      group_name  = "/aws/codebuild/codebuild-tf-iacdevops-aws-dev"
+      status = "ENABLED" # NOTE: Enable or DISABLE CloudWatch Logs for CodeBuild Project. Default retention is indefinite! (Delete manualy in CloudWatch > Log Groups).
       //stream_name = "log-stream"
     }
   }
@@ -58,8 +58,8 @@ resource "aws_codebuild_project" "stag" {
 
   logs_config {
     cloudwatch_logs {
-      //group_name  = "/aws/codebuild/codebuild-tf-iacdevops-aws-stag"
-      status = "DISABLED" # NOTE: Enable or DISABLE CloudWatch Logs for CodeBuild Project. Default retention is indefinite! (Delete manualy in CloudWatch > Log Groups).
+      group_name  = "/aws/codebuild/codebuild-tf-iacdevops-aws-stag"
+      status = "ENABLED" # NOTE: Enable or DISABLE CloudWatch Logs for CodeBuild Project. Default retention is indefinite! (Delete manualy in CloudWatch > Log Groups).
       //stream_name = "log-stream"
     }
   }
