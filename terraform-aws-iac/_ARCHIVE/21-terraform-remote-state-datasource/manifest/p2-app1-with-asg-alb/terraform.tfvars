@@ -2,4 +2,4 @@
 
 aws_region       = "eu-west-2"
 environment      = "dev"
-business_divsion = "devops"
+business_division = "devops"

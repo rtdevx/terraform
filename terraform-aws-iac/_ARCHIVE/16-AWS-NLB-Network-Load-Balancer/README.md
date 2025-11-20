@@ -82,7 +82,7 @@ Details about the course on my website: [Terraform on AWS with SRE & IaC DevOps]
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_aws_region"></a> [aws\_region](#input\_aws\_region) | Region in which AWS Resources will be created | `string` | `"eu-west-2"` | no |
-| <a name="input_business_divsion"></a> [business\_divsion](#input\_business\_divsion) | Business Division in the large organization this Infrastructure belongs | `string` | `"Operations"` | no |
+| <a name="input_business_division"></a> [business\_divsion](#input\_business\_divsion) | Business Division in the large organization this Infrastructure belongs | `string` | `"Operations"` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | Environment Variable used as a prefix | `string` | `"DEV"` | no |
 | <a name="input_instance_count_private_app1"></a> [instance\_count\_private\_app1](#input\_instance\_count\_private\_app1) | AWS EC2 Private Instances Count - APP1 | `number` | `1` | no |
 | <a name="input_instance_count_private_app2"></a> [instance\_count\_private\_app2](#input\_instance\_count\_private\_app2) | AWS EC2 Private Instances Count - APP2 | `number` | `1` | no |

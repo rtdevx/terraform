@@ -93,7 +93,7 @@ Details about the course on my website: [Terraform on AWS with SRE & IaC DevOps]
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_aws_region"></a> [aws\_region](#input\_aws\_region) | Region in which AWS Resources will be created | `string` | `"eu-west-2"` | no |
-| <a name="input_business_divsion"></a> [business\_divsion](#input\_business\_divsion) | Business Division in the large organization this Infrastructure belongs | `string` | `"Operations"` | no |
+| <a name="input_business_division"></a> [business\_divsion](#input\_business\_divsion) | Business Division in the large organization this Infrastructure belongs | `string` | `"Operations"` | no |
 | <a name="input_db_instance_identifier"></a> [db\_instance\_identifier](#input\_db\_instance\_identifier) | AWS RDS Database Instance Identifier | `string` | n/a | yes |
 | <a name="input_db_name"></a> [db\_name](#input\_db\_name) | AWS RDS Database Name | `string` | n/a | yes |
 | <a name="input_db_password"></a> [db\_password](#input\_db\_password) | AWS RDS Database Administrator Password | `string` | n/a | yes |
