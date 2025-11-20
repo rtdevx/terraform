@@ -1,4 +1,5 @@
 # Purpose of this Repository
 
-- Testing and Learning Terraform
-- Archive Terraform code
+- Learning Terraform
+- Testing Terraform code before CodePipelines are developed
+- Archive Terraform code for future reference
