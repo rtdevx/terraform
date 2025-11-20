@@ -13,7 +13,7 @@ resource "aws_codebuild_project" "dev" {
 
   source {
     type      = "GITHUB"
-    location  = "https://github.com/rtdevx/terraform-iacdevops-with-aws-codepipeline/tree/main"
+    location  = "https://github.com/${var.codepipeline_github_repository}/tree/main"
     buildspec = "buildspec-dev.yml"
   }
 
@@ -47,7 +47,7 @@ resource "aws_codebuild_project" "stag" {
 
   source {
     type      = "GITHUB"
-    location  = "https://github.com/rtdevx/terraform-iacdevops-with-aws-codepipeline/tree/main"
+    location  = "https://github.com/${var.codepipeline_github_repository}/tree/main"
     buildspec = "buildspec-stag.yml"
   }
 

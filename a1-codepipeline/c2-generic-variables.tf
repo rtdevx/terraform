@@ -19,6 +19,11 @@ variable "codepipeline_bucket_name_prefix" {
   type        = string
 }
 
+variable "codepipeline_github_repository" {
+  description = "CodePipeline GitHub repository"
+  type        = string
+}
+
 variable "tags" {
   description = "Tages to set on the bucket"
   type        = map(string)
