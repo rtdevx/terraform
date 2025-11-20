@@ -2,4 +2,4 @@
 
 aws_region       = "eu-west-2"
 environment      = "dev"
-business_divsion = "training"
+business_division = "training"
