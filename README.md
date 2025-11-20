@@ -1,25 +1,4 @@
-<!-- BEGIN_TF_DOCS -->
-## Requirements
+# Purpose of this Repository
 
-No requirements.
-
-## Providers
-
-No providers.
-
-## Modules
-
-No modules.
-
-## Resources
-
-No resources.
-
-## Inputs
-
-No inputs.
-
-## Outputs
-
-No outputs.
-<!-- END_TF_DOCS -->
+- Testing and Learning Terraform
+- Archive Terraform code
