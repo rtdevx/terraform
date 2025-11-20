@@ -22,7 +22,7 @@ resource "aws_codepipeline" "my_pipeline_dev" {
 
       configuration = {
         ConnectionArn    = "arn:aws:codeconnections:us-east-1:390157243794:connection/68b2e3c0-0860-408a-ad8b-fcc2ae60553f"
-        FullRepositoryId = "rtdevx/terraform-iacdevops-with-aws-codepipeline"
+        FullRepositoryId = "rtdevx/terraform-iac-aws-cp1"
         BranchName       = "main"
       }
     }
@@ -70,7 +70,7 @@ resource "aws_codepipeline" "my_pipeline_stag" {
 
       configuration = {
         ConnectionArn    = "arn:aws:codeconnections:us-east-1:390157243794:connection/68b2e3c0-0860-408a-ad8b-fcc2ae60553f"
-        FullRepositoryId = "rtdevx/terraform-iacdevops-with-aws-codepipeline"
+        FullRepositoryId = "rtdevx/terraform-iac-aws-cp1"
         BranchName       = "main"
       }
     }
