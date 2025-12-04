@@ -2,7 +2,7 @@
 # INFO: https://registry.terraform.io/providers/hashicorp/aws/latest/docs#example-usage
 
 terraform {
-  required_version = "~> 1.13.0" # NOTE: Greater than 1.13.2. Only the most upright version number (.0) can change.
+  required_version = "~> 1.14.0" # NOTE: Greater than 1.13.2. Only the most upright version number (.0) can change.
   required_providers {
     aws = {
       source  = "hashicorp/aws"
