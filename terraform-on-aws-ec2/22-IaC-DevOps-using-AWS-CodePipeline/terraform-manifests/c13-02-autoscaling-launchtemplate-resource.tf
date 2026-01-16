@@ -46,7 +46,7 @@ resource "aws_launch_template" "my_launch_template" {
   }
 
   # INFO: Tag specifications for the launch template itself
-    tags = {
+  tags = {
     Name        = "${local.name}"
     owners      = local.owners
     environment = local.environment
